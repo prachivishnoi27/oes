@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import courses from '../../apis/courses';
+import Axios from '../../apis/Axios';
 
 const CourseList = () => {
   const [courseList, setList] = useState([])
 
   useEffect(() => {
     ( async () => {
-      const { data } = await courses.get('/allcourses');
+      const { data } = await Axios.get('/allcourses');
       console.log(data)
       setList(data);
     })()
