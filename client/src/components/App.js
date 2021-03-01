@@ -5,6 +5,8 @@ import Header from './Header';
 import Signup from './Authentication/Signup';
 import Admin from './Administrator/Admin';
 import AdminCourses from './Courses/AdminCourses';
+import CreateCourse from './Courses/CreateCourse';
+import Addques from './Courses/AddQues';
 
 const App = () => {
   return (
@@ -16,6 +18,8 @@ const App = () => {
         <Route path="/courses" component={AdminCourses} />
         <Route path="/signup" component={Signup} />
         <Route path="/admin" component={Admin} />
+        <Route path="/createcourse" component={CreateCourse} />
+        <Route path="/addques" component={Addques} />
       </Switch>
     </div>
     </BrowserRouter>

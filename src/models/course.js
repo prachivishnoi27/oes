@@ -16,8 +16,7 @@ const courseSchema = new mongoose.Schema({
   },
   questions: [{
     ques: {
-      type: String,
-      required: true
+      type: String
     },
     options: [{
       a: {

@@ -41,7 +41,7 @@ const AdminCourses = () => {
 
   return (
     <div>
-      <button className="ui primary button right"><i className="plus icon"></i>Create New Course</button>
+      <Link to="/createcourse" className="ui primary button right"><i className="plus icon"></i>Create New Course</Link>
       <br></br>
       <div className="ui items celled table">
         {mycourses.length === 0 ? "" : renderList()}
