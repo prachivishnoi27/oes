@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import SignedHeader from './SignedHeader';
+import UnSignedHeader from './UnsignedHeader';
 
 const Header = () => {
+  const isSignedIn  = localStorage.getItem('isSignedIn') || 'false';
   return (
     <div className="ui menu">
       <Link to="/" className="item">All Courses</Link>
-      <div className="right menu">
-        <Link className="item" to="/signup">Sign Up</Link>
-        {/* <Link className="item" to="/login">Login</Link> */}
-      </div>
+      {isSignedIn === 'true'? <SignedHeader />: <UnSignedHeader />}
     </div>
   );
 };

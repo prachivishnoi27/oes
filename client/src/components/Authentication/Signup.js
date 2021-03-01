@@ -1,5 +1,6 @@
 import "./Signup.css";
 import React, { useState } from "react";
+import  { Redirect } from 'react-router-dom';
 import Axios from '../../apis/Axios';
 
 const Signup = () => {
@@ -8,6 +9,8 @@ const Signup = () => {
     name: "",
     password: ""
   });
+
+  let redirect = 0;
 
   const sendInfoToServer = async () => {
     console.log(newAdmin);
@@ -22,7 +25,11 @@ const Signup = () => {
         ...prevState,
         'successMessage': 'Registration successful. Redirecting to home.'
       }))
+      console.log(response.data.token);
+      localStorage.setItem('isSignedIn', true);
+      localStorage.setItem('token', response.data.token);
       console.log('user created successfully')
+      redirect=1;
     }else {
       console.log('Administrator can\'t be created.')
     }
@@ -84,6 +91,7 @@ const Signup = () => {
           Create Account
         </button>
       </form>
+      {redirect === 1? <Redirect to="/admin" />: ''}
     </div>
   );
 };

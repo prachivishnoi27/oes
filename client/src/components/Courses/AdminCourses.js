@@ -1,19 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Axios from "../../apis/Axios";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import Axios from '../../apis/Axios';
 
-const CourseList = () => {
-  const [courseList, setList] = useState([]);
-
+const AdminCourses = () => {
+  const [mycourses, setMycourses] = useState([]);
+  
   useEffect(() => {
+    const token = localStorage.getItem('token');
     (async () => {
-      const { data } = await Axios.get("/allcourses");
-      setList(data);
-    })();
+      const response = await Axios.get('/courses', {
+        headers: {
+          Authorization: token
+        }
+      })
+      console.log(response.data)
+      setMycourses(response.data);
+    })()
   }, []);
 
   const renderList = () => {
-    return courseList.map((course) => {
+    return mycourses.map((course) => {
       return (
         <div className="item" style={{'border': '1px solid #c9cfd1'}} key={course.code}>
           <div 
@@ -35,13 +41,13 @@ const CourseList = () => {
 
   return (
     <div>
-      CourseList
+      <button className="ui primary button right"><i className="plus icon"></i>Create New Course</button>
       <br></br>
       <div className="ui items celled table">
-        {courseList.length === 0 ? "" : renderList()}
+        {mycourses.length === 0 ? "" : renderList()}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CourseList;
+export default AdminCourses;

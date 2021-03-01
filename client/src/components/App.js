@@ -4,6 +4,7 @@ import CourseList from './Courses/CourseList';
 import Header from './Header';
 import Signup from './Authentication/Signup';
 import Admin from './Administrator/Admin';
+import AdminCourses from './Courses/AdminCourses';
 
 const App = () => {
   return (
@@ -12,8 +13,9 @@ const App = () => {
     <Header />
       <Switch>
         <Route path="/" component={CourseList} exact/>
+        <Route path="/courses" component={AdminCourses} />
         <Route path="/signup" component={Signup} />
-        <Route path="/admin" component={Admin}/>
+        <Route path="/admin" component={Admin} />
       </Switch>
     </div>
     </BrowserRouter>
