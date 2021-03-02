@@ -1,6 +1,6 @@
 const express = require('express')
 const Course = require('../models/course')
-const auth = require('../middlewares/auth')
+const auth = require('../middlewares/adminAuth')
 const router = new express.Router()
 
 router.post('/courses', auth, async (req, res) => {
@@ -74,6 +74,16 @@ router.patch('/courses/:code', auth, async (req, res) => {
     res.status(200).send(course)
   } catch (e) {
     res.status(400).send(e)
+  }
+})
+
+router.patch('/courses/:code/addques', auth, async (req, res) => {
+  try {
+    const course = await Course.findOne({ code: req.params.code, owner: req.user._id})
+    console.log(course.questions);
+    res.status(200).send(course.questions);
+  } catch (e) {
+    res.status(400).send();
   }
 })
 

@@ -2,15 +2,9 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const Course = require('./course');
 
-const userSchema = new mongoose.Schema(
+const adminSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      trim: true,
-      required: true,
-    },
     email: {
       type: String,
       required: true,
@@ -33,13 +27,6 @@ const userSchema = new mongoose.Schema(
         }
       },
     },
-    // rollnumber: {
-    //   type: Number
-    // },
-    // contactnumber: {
-    //     type: String,
-
-    // },
     tokens: [
       {
         token: {
@@ -55,45 +42,51 @@ const userSchema = new mongoose.Schema(
 );
 
 
-userSchema.virtual('courses', {
+adminSchema.virtual('courses', {
   ref: 'Course',
   localField: '_id',
   foreignField: 'owner'
 })
 
-userSchema.methods.generateAuthToken = async function () {
-  const user = this;
+adminSchema.methods.generateAuthToken = async function () {
+  const admin = this;
   const token = jwt.sign(
-    { _id: user._id.toString() },
+    { _id: admin._id.toString() },
     "online examination system"
   );
-  user.tokens = user.tokens.concat({ token });
-  await user.save();
+  // console.log(token)
+  admin.tokens = admin.tokens.concat({ token });
+  // console.log(admin.tokens.length);
+  await admin.save();
   return token;
 };
 
-userSchema.statics.findByCredentials = async (email, password) => {
-  const user = await User.findOne({ email });
-  if (!user) {
+adminSchema.statics.findByCredentials = async (email, password) => {
+  const admin = await Admin.findOne({ email });
+  if (!admin) {
     throw new Error("Unable to login");
   }
-  const isMatch = await bcrypt.compare(password, user.password);
+  // console.log(password);
+  // console.log(admin.password);
+  const isMatch = await bcrypt.compare(password, admin.password);
+  // console.log(isMatch);
   if (!isMatch) {
     throw new Error("Unable to login");
   }
-  return user;
+  return admin;
 };
 
-userSchema.pre("save", async function (next) {
-  const user = this;
+adminSchema.pre("save", async function (next) {
+  const admin = this;
 
-  if (!user.isModified("password")) {
-    user.password = await bcrypt.hash(user.password, 8);
+  if (admin.isModified("password")) {
+    admin.password = await bcrypt.hash(admin.password, 8);
+    console.log(admin.password);
   }
 
   next();
 });
 
-const User = mongoose.model("User", userSchema);
+const Admin = mongoose.model("Admin", adminSchema);
 
-module.exports = User;
+module.exports = Admin;
