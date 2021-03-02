@@ -54,9 +54,7 @@ adminSchema.methods.generateAuthToken = async function () {
     { _id: admin._id.toString() },
     "online examination system"
   );
-  // console.log(token)
   admin.tokens = admin.tokens.concat({ token });
-  // console.log(admin.tokens.length);
   await admin.save();
   return token;
 };
@@ -66,10 +64,7 @@ adminSchema.statics.findByCredentials = async (email, password) => {
   if (!admin) {
     throw new Error("Unable to login");
   }
-  // console.log(password);
-  // console.log(admin.password);
   const isMatch = await bcrypt.compare(password, admin.password);
-  // console.log(isMatch);
   if (!isMatch) {
     throw new Error("Unable to login");
   }

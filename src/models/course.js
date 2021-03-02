@@ -7,7 +7,8 @@ const courseSchema = new mongoose.Schema({
     trim: true
   },
   name: {
-    type: String
+    type: String,
+    trim: true
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
@@ -39,6 +40,13 @@ const courseSchema = new mongoose.Schema({
 }, {
   timestamps: true
 })
+
+courseSchema.methods.addNewQues = async function ( ques ) {
+  const course = this;
+  course.questions = course.questions.concat(ques);
+  await course.save();
+  return course.questions;
+};
 
 const Course = mongoose.model('Course', courseSchema)
 
