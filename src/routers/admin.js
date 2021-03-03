@@ -6,7 +6,6 @@ const router = new express.Router()
 
 router.post('/admin', async (req,res) => {
   const admin = new Admin(req.body)
-  // console.log(admin);
   try {
     await admin.save()
     const token = await admin.generateAuthToken()
@@ -27,10 +26,11 @@ router.post('/admin/login', async (req,res) => {
 })
 
 router.post('/admin/logout', adminAuth, async (req, res) => {
+  console.log(req);
   try {
     req.admin.tokens = req.admin.tokens.filter( token => token.token!= req.token)
     await req.admin.save()
-    res.send()
+    res.send('Admin logged out successfully')
   } catch (e) {
     res.status(500).send()
   }

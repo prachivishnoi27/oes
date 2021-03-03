@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 // import { Redirect } from 'react-router-dom';
 import Axios from '../../apis/Axios';
+import Header from '../Header';
 
 const CreateCourse = () => {
   const [courseData, setCourseData] = useState({
@@ -39,6 +40,7 @@ const CreateCourse = () => {
 
   return (
     <div>
+      <Header />
       <form onSubmit={handleSubmit} className="ui form">
         <div className="field">
         <label>Course Code</label>

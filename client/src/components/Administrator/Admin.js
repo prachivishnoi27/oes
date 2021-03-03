@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Axios from "../../apis/Axios";
+import Header from '../Header';
 
 const Admin = () => {
   const [data, setData] = useState("");
@@ -22,6 +23,7 @@ const Admin = () => {
 
   return (
     <div>
+      <Header />
       <div className="ui items">{data}</div>
       <button className="ui teal button">Edit Profile</button>
     </div>

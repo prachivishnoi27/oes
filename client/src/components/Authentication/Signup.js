@@ -2,6 +2,7 @@ import "./Signup.css";
 import React, { useState } from "react";
 import  { Redirect } from 'react-router-dom';
 import Axios from '../../apis/Axios';
+import Header from '../Header';
 
 const Signup = () => {
   const [newAdmin, setNewAdmin] = useState({
@@ -49,7 +50,9 @@ const Signup = () => {
   };
 
   return (
-    <div className="main-form">
+    <div>
+      <Header />
+      <div className="main-form">
       <h2>Create account as Administrator</h2>
       <form onSubmit={handleSubmit} className="ui form">
         <div className="field">
@@ -81,6 +84,7 @@ const Signup = () => {
         </button>
       </form>
       {redirect === 1? <Redirect to="/admin" />: ''}
+    </div>
     </div>
   );
 };

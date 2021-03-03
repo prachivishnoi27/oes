@@ -50,6 +50,7 @@ adminSchema.virtual('courses', {
 
 adminSchema.methods.generateAuthToken = async function () {
   const admin = this;
+  console.log(admin);
   const token = jwt.sign(
     { _id: admin._id.toString() },
     "online examination system"

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from '../../apis/Axios';
+import Header from '../Header';
 
 const AdminCourses = () => {
   const [mycourses, setMycourses] = useState([]);
   
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token') ?? '';
     console.log(token);
     (async () => {
       const response = await Axios.get('/courses', {
@@ -42,6 +43,7 @@ const AdminCourses = () => {
 
   return (
     <div>
+      <Header />
       <Link to="/createcourse" className="ui primary button right"><i className="plus icon"></i>Create New Course</Link>
       <br></br>
       <div className="ui items celled table">

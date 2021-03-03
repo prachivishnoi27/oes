@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Axios from '../../apis/Axios';
+import Header from '../Header';
 
 const LoginAdmin = () => {
   const [admin, setAdmin] = useState({
@@ -40,7 +41,9 @@ const LoginAdmin = () => {
   };
 
   return (
-    <div className="main-form">
+    <div>
+      <Header />
+      <div className="main-form">
       <h2>Administrator Login</h2>
       <form onSubmit={handleSubmit} className="ui form">
         <div className="field">
@@ -71,6 +74,7 @@ const LoginAdmin = () => {
           Login
         </button>
       </form>
+    </div>
     </div>
   );
 }

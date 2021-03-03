@@ -4,7 +4,7 @@ import SignedHeader from './SignedHeader';
 import UnSignedHeader from './UnsignedHeader';
 
 const Header = () => {
-  const isSignedIn  = localStorage.getItem('isSignedIn') || 'false';
+  const isSignedIn = localStorage.getItem('isSignedIn') || 'false';
   return (
     <div className="ui menu">
       <Link to="/" className="item">All Courses</Link>
