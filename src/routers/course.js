@@ -4,11 +4,12 @@ const adminAuth = require('../middlewares/adminAuth')
 const router = new express.Router()
 
 router.post('/courses', adminAuth, async (req, res) => {
-  // console.log(req.admin)
   const course = new Course({
     ...req.body,
     owner: req.admin._id
   })
+
+  console.log(course);
 
   try {
     await course.save()

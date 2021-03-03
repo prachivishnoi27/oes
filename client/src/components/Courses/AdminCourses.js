@@ -7,6 +7,7 @@ const AdminCourses = () => {
   
   useEffect(() => {
     const token = localStorage.getItem('token');
+    console.log(token);
     (async () => {
       const response = await Axios.get('/courses', {
         headers: {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import Axios from '../../apis/Axios';
 
 const CreateCourse = () => {
@@ -11,14 +11,19 @@ const CreateCourse = () => {
   const handleSubmit = () => {
     (async () => {
       const token = localStorage.getItem('token');
-      const response = await Axios.post('/courses', courseData, {
+      const payload = {
+        "code": courseData.code,
+        "name": courseData.name
+      }
+      const response = await Axios.post('/courses', payload, {
         headers: {
           Authorization: token
         }
       })
       if(response.status === 201) {
-        // return <Redirect to="/addques" />
-        console.log(response.data);
+        console.log(response);
+      }else {
+        console.log('error')
       }
     })();
   }

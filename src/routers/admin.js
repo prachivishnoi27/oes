@@ -6,7 +6,7 @@ const router = new express.Router()
 
 router.post('/admin', async (req,res) => {
   const admin = new Admin(req.body)
-  console.log(admin);
+  // console.log(admin);
   try {
     await admin.save()
     const token = await admin.generateAuthToken()
@@ -20,7 +20,7 @@ router.post('/admin/login', async (req,res) => {
   try {
     const admin = await Admin.findByCredentials(req.body.email, req.body.password)
     const token = await admin.generateAuthToken()
-    res.send({ admin, token})
+    res.status(200).send({ admin, token})
   } catch (e) {
     res.status(400).send({'error': 'Please authenticate'})
   }

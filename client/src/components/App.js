@@ -7,6 +7,7 @@ import Admin from './Administrator/Admin';
 import AdminCourses from './Courses/AdminCourses';
 import CreateCourse from './Courses/CreateCourse';
 import Addques from './Courses/AddQues';
+import LoginAdmin from './Authentication/LoginAdmin';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/admin" component={Admin} />
         <Route path="/createcourse" component={CreateCourse} />
         <Route path="/addques" component={Addques} />
+        <Route path="/login" component={LoginAdmin} />
       </Switch>
     </div>
     </BrowserRouter>

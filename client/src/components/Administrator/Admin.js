@@ -7,23 +7,22 @@ const Admin = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     (async () => {
-      const response = await Axios.get("/users/me", {
+      const response = await Axios.get("/admin/me", {
         headers: {
-          Authorization: token,
+          Authorization: token
         },
       });
 
       if (response.status === 200) {
         console.log(response.data);
-        setData(response.data.name);
+        setData(response.data.email);
       }
     })();
   }, []);
 
   return (
     <div>
-      Hi i am admin
-      <div className="ui items">My name is {data}</div>
+      <div className="ui items">{data}</div>
       <button className="ui teal button">Edit Profile</button>
     </div>
   );

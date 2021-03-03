@@ -15,11 +15,10 @@ const Signup = () => {
   const sendInfoToServer = async () => {
     console.log(newAdmin);
     const payload = {
-      "name": newAdmin.name,
       "email": newAdmin.email,
       "password": newAdmin.password
     }
-    const response = await Axios.post('/users', payload);
+    const response = await Axios.post('/admin', payload);
     if(response.status === 201) {
       setNewAdmin(prevState => ({
         ...prevState,
@@ -52,17 +51,7 @@ const Signup = () => {
   return (
     <div className="main-form">
       <h2>Create account as Administrator</h2>
-      <form onSubmit={handleSubmit} className="ui form error">
-        <div className="field">
-          <label>Name</label>
-          <input
-          type="text"
-            placeholder="Name"
-            id="name"
-            value={newAdmin.name}
-            onChange={handleChange}
-          />
-        </div>
+      <form onSubmit={handleSubmit} className="ui form">
         <div className="field">
           <label>Email</label>
           <input
