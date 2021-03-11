@@ -1,0 +1,25 @@
+.background-layout {
+  background-image: url('../../img/bg.jpg');
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.7;
+  height: 100vh;
+}
+
+.center-content {
+  /* display: flex; */
+  /* align-items: center;
+   */
+   height: 70vh;
+   width: 40%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: aliceblue;
+}
+
+.styling-form{
+  padding: 15px;
+}
