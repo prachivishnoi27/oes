@@ -37,7 +37,7 @@ const Signup = () => {
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    console.log(value)
+    // console.log(value)
     setNewAdmin((prevState) => ({
       ...prevState,
       [id]: value,

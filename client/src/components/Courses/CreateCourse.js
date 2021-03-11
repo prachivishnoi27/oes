@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-// import { Redirect } from 'react-router-dom';
-import Axios from '../../apis/Axios';
+import axios from 'axios';
 import Header from '../Header';
 
 const CreateCourse = () => {
@@ -9,24 +8,34 @@ const CreateCourse = () => {
     name: ''
   });
 
-  const handleSubmit = () => {
-    (async () => {
-      const token = localStorage.getItem('token');
+  const createRequest = async (payload) => {
+    const token = localStorage.getItem('token');
+    try {
+      const response  = await axios({
+        method: 'post',
+        url: 'http://localhost:5000/courses',
+        data: payload,
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(response);
+        console.log('Course created successfully')
+    }catch(e) {
+      console.log(e);
+        console.log('in catch');
+    }
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
       const payload = {
         "code": courseData.code,
         "name": courseData.name
       }
-      const response = await Axios.post('/courses', payload, {
-        headers: {
-          Authorization: token
-        }
+      createRequest(payload);
+      setCourseData({
+        code: '',
+        name: ''
       })
-      if(response.status === 201) {
-        console.log(response);
-      }else {
-        console.log('error')
-      }
-    })();
   }
 
   const handleChange = (e) => {

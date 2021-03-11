@@ -27,7 +27,7 @@ const AdminCourses = () => {
           <div 
           className="single line"
           style={{ padding: "5px"}}>
-            <Link to="" style={{'color': '#373e40'}}>
+            <Link to={`/course/${course.code}`} style={{'color': '#373e40'}}>
             <div className="content menu">
               Course CODE: {course.code}
               <div className="description">

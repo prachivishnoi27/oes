@@ -24,8 +24,8 @@ const LoginAdmin = () => {
         "email": admin.email,
         "password": admin.password
       }
+     try { 
       const response = await Axios.post('/admin/login', payload);
-      if(response.status === 200) {
         setAdmin(prevState => ({
           ...prevState,
           'successMessage': 'Registration successful. Redirecting to home.'
@@ -34,7 +34,7 @@ const LoginAdmin = () => {
         localStorage.setItem('isSignedIn', true);
         localStorage.setItem('token', response.data.token);
         console.log('user logged in successfully')
-      }else {
+     } catch (e) {
         console.log('Login failed')
       }
     })()

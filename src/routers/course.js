@@ -80,10 +80,10 @@ router.patch('/courses/:code', adminAuth, async (req, res) => {
 router.patch('/courses/:code/addques', adminAuth, async (req, res) => {
   try {
     const course = await Course.findOne({ code: req.params.code, owner: req.admin._id})
-    console.log(course.questions.length);
-    console.log(req.body);
+    // console.log(course.questions.length);
+    // console.log(req.body);
     const modifiedCourse = await course.addNewQues(req.body);
-    console.log(modifiedCourse.length);
+    // console.log(modifiedCourse.length);
     res.status(200).send(modifiedCourse);
   } catch (e) {
     res.status(400).send();
