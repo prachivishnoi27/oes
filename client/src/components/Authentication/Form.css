@@ -1,0 +1,12 @@
+.main-form {
+  margin-top:10vh;
+  margin-left: 20vw;
+  height: auto;
+  justify-content: center;
+  align-items: center;
+  width: 35vw;
+  background-color: white;
+  padding: 20px;
+  border: 1px solid rgb(219, 190, 173);
+  border-radius: 1%;
+}

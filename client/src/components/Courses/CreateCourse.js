@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Header from "../Header";
+import Header from "../Headers/Header";
 
 const CreateCourse = () => {
   const [courseData, setCourseData] = useState({

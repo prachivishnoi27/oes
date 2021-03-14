@@ -1,15 +1,19 @@
 import React from 'react';
+import './App.css';
 import {BrowserRouter , Route , Switch} from "react-router-dom";
-import CourseList from './Courses/CourseList';
 import RegisterAdmin from './Authentication/RegisterAdmin';
 import Admin from './Administrator/Admin';
 import AdminCourses from './Courses/AdminCourses';
 import CreateCourse from './Courses/CreateCourse';
 import Addques from './Courses/AddQues';
-import LoginAdmin from './Authentication/LoginAdmin';
+import Login from './Authentication/Login';
 import LogoutAdmin from './Authentication/LogoutAdmin';
 import SingleCourse from './Courses/SingleCourse';
 import UnAuthExam from './Courses/UnAuthExam';
+import Signup from './Authentication/Signup';
+import Header from './Headers/Header';
+import Home from './Home';
+import New from './new';
 
 const App = () => {
   console.log(localStorage.getItem('token'));
@@ -17,19 +21,23 @@ const App = () => {
   return (
     <BrowserRouter>
     <div className="ui container">
+      <Header />
       <Switch>
-        <Route path="/" component={CourseList} exact/>
+        <Route path="/" component={Home} exact/>
         <Route path="/courses" component={AdminCourses} exact/>
-        <Route path="/signup" component={RegisterAdmin} exact/>
-        <Route path="/admin" component={Admin} />
-        <Route path="/createcourse" component={CreateCourse} />
-        <Route path="/course/:code/addques" exact component={Addques} />
-        <Route path="/login" component={LoginAdmin} />
-        <Route path="/logout" component={LogoutAdmin} />
-        <Route path="/course/:code" component={SingleCourse} />
-        <Route path="/:code" component={UnAuthExam} />
+        <Route path="/signup" component={Signup} exact />
+        <Route path="/registeradmin" component={RegisterAdmin} exact/>
+        <Route path="/admin" component={Admin} exact/>
+        <Route path="/createcourse" component={CreateCourse} exact />
+        <Route path="/course/:code/addques" exact component={Addques}/>
+        <Route path="/login" component={Login} exact/>
+        <Route path="/logout" component={LogoutAdmin} exact/>
+        <Route path="/course/:code" component={SingleCourse} exact/>
+        <Route path="/:code" component={UnAuthExam} exact/>
+        <Route path="/new" component={New} exact/>
+        {/* <Route path="/exam/:code" component={} /> */}
       </Switch>
-    </div>
+      </div>
     </BrowserRouter>
   );
 }

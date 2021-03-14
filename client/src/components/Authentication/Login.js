@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import Axios from '../../apis/Axios';
-import Header from '../Header';
+import './Form.css';
+import axios from 'axios';
 
-const LoginAdmin = () => {
-  const [admin, setAdmin] = useState({
+const Login = () => {
+  const [user, setUser] = useState({
     email: '',
-    password: ''
+    password: '',
+    user: 'Administrator'
   })
   const handleChange = (e) => {
     const { id, value } = e.target;
-    console.log(value)
-    setAdmin((prevState) => ({
+    setUser((prevState) => ({
       ...prevState,
       [id]: value,
     }));
@@ -18,15 +18,18 @@ const LoginAdmin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(admin);
     (async () => {
       const payload = {
-        "email": admin.email,
-        "password": admin.password
+        "email": user.email,
+        "password": user.password
       }
      try { 
-      const response = await Axios.post('/admin/login', payload);
-        setAdmin(prevState => ({
+      const response = await axios({
+        method: "post",
+        url: "http:localhost:5000/admin/login",
+        data: payload
+      })
+        setUser(prevState => ({
           ...prevState,
           'successMessage': 'Registration successful. Redirecting to home.'
         }))
@@ -35,16 +38,15 @@ const LoginAdmin = () => {
         localStorage.setItem('token', response.data.token);
         console.log('user logged in successfully')
      } catch (e) {
-        console.log('Login failed')
+        console.log('Login failed:', e)
       }
     })()
   };
 
   return (
     <div>
-      <Header />
       <div className="main-form">
-      <h2>Administrator Login</h2>
+      <h2 style={{'textAlign': 'center'}}>Login</h2>
       <form onSubmit={handleSubmit} className="ui form">
         <div className="field">
           <label>Email</label>
@@ -52,7 +54,7 @@ const LoginAdmin = () => {
             type="email"
             placeholder="abc@xyz.com"
             id="email"
-            value={admin.email}
+            value={user.email}
             onChange={handleChange}
           />
         </div>
@@ -62,14 +64,25 @@ const LoginAdmin = () => {
             type="password"
             placeholder="Password"
             id="password"
-            value={admin.password}
+            value={user.password}
             onChange={handleChange}
           />
+        </div>
+        <div className="field">
+            <label>Login As:</label>
+            <div className="ui floating dropdown labeled search icon button">
+            <i className="user icon"></i>
+            <span className="text">Select</span>
+              <select className="menu" name="type" id={user.user} onChange={handleChange}>
+                  <option className="item" value="Student">Student</option>
+                  <option className="item" value="Admin">Administrator</option>
+              </select>
+            </div>
         </div>
         <button
           className="ui button primary"
           onClick={handleSubmit}
-          style={{ marginTop: "10px" }}
+          style={{ 'marginTop': "10px" }}
         >
           Login
         </button>
@@ -79,4 +92,4 @@ const LoginAdmin = () => {
   );
 }
 
-export default LoginAdmin;
+export default Login;

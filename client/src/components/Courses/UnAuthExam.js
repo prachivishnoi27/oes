@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import Header from "../Header";
+import Header from "../Headers/Header";
 
 const UnAuthExam = () => {
   const { code } = useParams();
@@ -12,7 +12,7 @@ const UnAuthExam = () => {
       try {
         const response = await axios({
           method: "get",
-          url: `http://localhost:5000/courses/${code}`,
+          url: `http://localhost:5000/${code}`,
         });
         setDetail(response.data);
       } catch (e) {

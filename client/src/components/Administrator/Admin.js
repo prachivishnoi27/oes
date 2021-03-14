@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
-import Axios from "../../apis/Axios";
-import Header from '../Header';
+import axios from 'axios';
+import Header from '../Headers/Header';
 
 const Admin = () => {
   const [data, setData] = useState("");
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
     (async () => {
-      const response = await Axios.get("/admin/me", {
-        headers: {
-          Authorization: token
-        },
-      });
+      try {
+        const response = await axios({
+          method: "get",
+          url: "http:localhost:5000/admin/me"
+        })
 
-      if (response.status === 200) {
         console.log(response.data);
         setData(response.data.email);
+      } catch (e) {
+        console.log('Admin profile page error: ', e);
       }
     })();
   }, []);

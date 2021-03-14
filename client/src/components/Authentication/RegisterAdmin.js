@@ -1,8 +1,6 @@
-import "./Signup.css";
+import "./Form.css";
 import React, { useState } from "react";
-import  { Redirect } from 'react-router-dom';
-import Axios from '../../apis/Axios';
-import Header from '../Header';
+import axios from 'axios';
 
 const RegisterAdmin = () => {
   const [newAdmin, setNewAdmin] = useState({
@@ -11,8 +9,6 @@ const RegisterAdmin = () => {
     password: ""
   });
 
-  let redirect = 0;
-
   const sendInfoToServer = async () => {
     console.log(newAdmin);
     const payload = {
@@ -20,8 +16,12 @@ const RegisterAdmin = () => {
       "email": newAdmin.email,
       "password": newAdmin.password
     }
-    const response = await Axios.post('/admin', payload);
-    if(response.status === 201) {
+    try {
+      const response = await axios({
+        method: "post",
+        url: "http://localhost:5000/admin",
+        data: payload
+      })
       setNewAdmin(prevState => ({
         ...prevState,
         'successMessage': 'Registration successful. Redirecting to home.'
@@ -29,10 +29,9 @@ const RegisterAdmin = () => {
       console.log(response.data.token);
       localStorage.setItem('isSignedIn', true);
       localStorage.setItem('token', response.data.token);
-      console.log('user created successfully')
-      redirect=1;
-    }else {
-      console.log('Administrator can\'t be created.')
+      console.log('Admin created successfully')
+    } catch (e) {
+      console.log('Administrator can\'t be created. error: ', e)
     }
   };
 
@@ -52,9 +51,8 @@ const RegisterAdmin = () => {
 
   return (
     <div>
-      <Header />
-      <div className="main-form">
-      <h2>Register as Administrator</h2>
+      <React.Fragment>
+      <h3>Register as Administrator</h3>
       <form onSubmit={handleSubmit} className="ui form">
       <div className="field">
           <label>Name</label>
@@ -94,8 +92,7 @@ const RegisterAdmin = () => {
           Register
         </button>
       </form>
-      {redirect === 1? <Redirect to="/admin" />: ''}
-    </div>
+    </React.Fragment>
     </div>
   );
 };

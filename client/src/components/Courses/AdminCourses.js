@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Axios from '../../apis/Axios';
-import Header from '../Header';
+import axios from 'axios';
+import Header from '../Headers/Header';
 
 const AdminCourses = () => {
   const [mycourses, setMycourses] = useState([]);
   
   useEffect(() => {
-    const token = localStorage.getItem('token') ?? '';
-    console.log(token);
     (async () => {
-      const response = await Axios.get('/courses', {
-        headers: {
-          Authorization: token
-        }
-      })
-      console.log(response.data)
+      try {
+        const token = localStorage.getItem('token') ?? '';
+    // console.log(token);
+        const response = await axios({
+          method: 'get',
+          url: 'http:localhost:5000/courses', 
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        // console.log(response.data)
       setMycourses(response.data);
+      } catch (e) {
+        console.log('Error in catch: ', e)
+      }
     })()
   }, []);
 
