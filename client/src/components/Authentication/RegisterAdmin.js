@@ -4,7 +4,7 @@ import  { Redirect } from 'react-router-dom';
 import Axios from '../../apis/Axios';
 import Header from '../Header';
 
-const Signup = () => {
+const RegisterAdmin = () => {
   const [newAdmin, setNewAdmin] = useState({
     email: "",
     name: "",
@@ -16,6 +16,7 @@ const Signup = () => {
   const sendInfoToServer = async () => {
     console.log(newAdmin);
     const payload = {
+      "name": newAdmin.name,
       "email": newAdmin.email,
       "password": newAdmin.password
     }
@@ -53,8 +54,18 @@ const Signup = () => {
     <div>
       <Header />
       <div className="main-form">
-      <h2>Create account as Administrator</h2>
+      <h2>Register as Administrator</h2>
       <form onSubmit={handleSubmit} className="ui form">
+      <div className="field">
+          <label>Name</label>
+          <input
+            type="text"
+            placeholder="name"
+            id="name"
+            value={newAdmin.name}
+            onChange={handleChange}
+          />
+        </div>
         <div className="field">
           <label>Email</label>
           <input
@@ -80,7 +91,7 @@ const Signup = () => {
           onClick={handleSubmit}
           style={{ marginTop: "10px" }}
         >
-          Create Account
+          Register
         </button>
       </form>
       {redirect === 1? <Redirect to="/admin" />: ''}
@@ -89,4 +100,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default RegisterAdmin;

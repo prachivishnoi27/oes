@@ -8,6 +8,7 @@ const SignedHeader = () => {
     localStorage.getItem("isSignedIn")
   );
 
+
   if (isSignedIn === false) {
     return <Redirect to="/"></Redirect>;
   }

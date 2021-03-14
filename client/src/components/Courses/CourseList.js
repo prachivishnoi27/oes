@@ -5,6 +5,7 @@ import Header from '../Header';
 
 const CourseList = () => {
   const [courseList, setList] = useState([]);
+  // localStorage.setItem('isSignedIn', false);
 
   useEffect(() => {
     (async () => {
@@ -20,7 +21,7 @@ const CourseList = () => {
           <div 
           className="single line"
           style={{ padding: "5px"}}>
-            <Link to="" style={{'color': '#373e40'}}>
+            <Link to={`/${course.code}`} style={{'color': '#373e40'}}>
             <div className="content menu">
               Course CODE: {course.code}
               <div className="description">
