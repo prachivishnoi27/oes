@@ -2,6 +2,7 @@ const express = require("express");
 require("./db/mongoose");
 const userRouter = require("./routers/admin");
 const courseRouter = require("./routers/course");
+const studentRouter = require('./routers/student');
 const app = express();
 
 app.use(express.json());
@@ -22,6 +23,7 @@ app.use(function (req, res, next) {
 
 app.use(userRouter);
 app.use(courseRouter);
+app.use(studentRouter);
 
 app.get("", (req, res) => {
   res.send("Hey there");
