@@ -47,7 +47,7 @@ const AdminCourses = () => {
 
   return (
     <div>
-      <Header />
+      <Header auth="admin"/>
       <Link to="/createcourse" className="ui primary button right"><i className="plus icon"></i>Create New Exam</Link>
       <br></br>
       <div className="ui items celled table">

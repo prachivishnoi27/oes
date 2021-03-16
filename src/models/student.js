@@ -89,6 +89,7 @@ studentSchema.methods.generateAuthToken = async function () {
 
 studentSchema.statics.findByCredentials = async (email, password) => {
   const student = await Student.findOne({ email });
+  console.log(student);
   if (!student) {
     throw new Error("Unable to login");
   }
@@ -96,6 +97,7 @@ studentSchema.statics.findByCredentials = async (email, password) => {
   if (!isMatch) {
     throw new Error("Unable to login");
   }
+  console.log(student);
   return student;
 };
 

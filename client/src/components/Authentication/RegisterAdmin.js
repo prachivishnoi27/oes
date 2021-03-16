@@ -27,7 +27,7 @@ const RegisterAdmin = () => {
         'successMessage': 'Registration successful. Redirecting to home.'
       }))
       console.log(response.data.token);
-      localStorage.setItem('isSignedIn', true);
+      localStorage.setItem('isSignedInAdmin', true);
       localStorage.setItem('token', response.data.token);
       console.log('Admin created successfully')
     } catch (e) {

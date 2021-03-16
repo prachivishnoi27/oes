@@ -1,95 +1,146 @@
-import React, { useState } from 'react';
-import './Form.css';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { Link, Redirect } from "react-router-dom";
+import Select from "react-select";
+import "./Form.css";
+import Header from '../Headers/Header';
+import axios from "axios";
 
 const Login = () => {
+  const [log, setLog] = useState('');
   const [user, setUser] = useState({
-    email: '',
-    password: '',
-    user: 'Administrator'
-  })
+    email: "",
+    password: "",
+    user: "Admin",
+  });
+
+  useEffect( () => {}, [log]);
+  if(log === 'Student'){
+    return <Redirect to="/allexams" />
+  }
+
+  if(log === 'Admin'){
+    return <Redirect to="/admin" />
+  }
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setUser((prevState) => ({
       ...prevState,
       [id]: value,
     }));
+
+    console.log(id, value);
   };
+
+  const options = [
+    { value: "Admin", label: "Administrator" },
+    { value: "Student", label: "Student" },
+  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    (async () => {
-      const payload = {
-        "email": user.email,
-        "password": user.password
-      }
-     try { 
-      const response = await axios({
-        method: "post",
-        url: "http:localhost:5000/admin/login",
-        data: payload
-      })
-        setUser(prevState => ({
-          ...prevState,
-          'successMessage': 'Registration successful. Redirecting to home.'
-        }))
-        console.log(response.data.token);
-        localStorage.setItem('isSignedIn', true);
-        localStorage.setItem('token', response.data.token);
-        console.log('user logged in successfully')
-     } catch (e) {
-        console.log('Login failed:', e)
-      }
-    })()
+    if(user.user === 'Admin') {
+      (async () => {
+        const payload = {
+          email: user.email,
+          password: user.password,
+        };
+        try {
+          const response = await axios({
+            method: "post",
+            url: "http:localhost:5000/admin/login",
+            data: payload,
+          });
+          setUser((prevState) => ({
+            ...prevState,
+            successMessage: "Registration successful. Redirecting to home.",
+          }));
+          console.log(response.data.token);
+          localStorage.setItem("isSignedInAdmin", true);
+          localStorage.setItem("token", response.data.token);
+          console.log("admin logged in successfully");
+          setLog('Admin')
+        } catch (e) {
+          console.log("Login failed:", e);
+        }
+      })();
+    }else {
+      (async () => {
+        const payload = {
+          email: user.email,
+          password: user.password,
+        };
+        try {
+          const response = await axios({
+            method: "post",
+            url: "http://localhost:5000/student/login",
+            data: payload,
+          });
+          setUser((prevState) => ({
+            ...prevState,
+            successMessage: "Registration successful. Redirecting to home.",
+          }));
+          console.log(response.data.token);
+          localStorage.setItem("isSignedInStudent", true);
+          localStorage.setItem("token", response.data.token);
+          console.log("student logged in successfully");
+          setLog('Student')
+        } catch (e) {
+          console.log("Login failed:", e);
+        }
+      })();
+    }
+    
   };
 
   return (
     <div>
+      <Header auth="null"/>
       <div className="main-form">
-      <h2 style={{'textAlign': 'center'}}>Login</h2>
-      <form onSubmit={handleSubmit} className="ui form">
-        <div className="field">
-          <label>Email</label>
-          <input
-            type="email"
-            placeholder="abc@xyz.com"
-            id="email"
-            value={user.email}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="field">
-          <label>Password</label>
-          <input
-            type="password"
-            placeholder="Password"
-            id="password"
-            value={user.password}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="field">
+        <h2 style={{ textAlign: "center" }}>Login</h2>
+        <form onSubmit={handleSubmit} className="ui form">
+          <div className="field">
+            <label>Email</label>
+            <input
+              type="email"
+              placeholder="abc@xyz.com"
+              id="email"
+              value={user.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="field">
+            <label>Password</label>
+            <input
+              type="password"
+              placeholder="Password"
+              id="password"
+              value={user.password}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="ui form field">
             <label>Login As:</label>
-            <div className="ui floating dropdown labeled search icon button">
-            <i className="user icon"></i>
-            <span className="text">Select</span>
-              <select className="menu" name="type" id={user.user} onChange={handleChange}>
-                  <option className="item" value="Student">Student</option>
-                  <option className="item" value="Admin">Administrator</option>
-              </select>
-            </div>
-        </div>
-        <button
-          className="ui button primary"
-          onClick={handleSubmit}
-          style={{ 'marginTop': "10px" }}
-        >
-          Login
-        </button>
-      </form>
-    </div>
+              <Select options={options} onChange={(e) => {
+                console.log(e.value);
+                setUser((prevState) => ({
+                  ...prevState,
+                  user: e.value,
+                }));
+              }}/>
+          </div>
+          <button
+            className="ui button primary"
+            onClick={handleSubmit}
+            style={{ 'marginTop': '10px', 'marginBottom': '10px' }}
+          >
+            Login
+          </button>
+        </form>
+        <Link to="/signup" style={{'color': 'rgb(189, 129, 95)'}}>Dont have an account? Signup</Link>
+      </div>
     </div>
   );
-}
+};
 
 export default Login;

@@ -41,7 +41,7 @@ const UnAuthExam = () => {
 
   return (
     <div>
-      <Header />
+      <Header auth="null"/>
       <div>
       {Object.keys(detail).length === 0 ? "" : renderDetails()}
       </div>

@@ -60,7 +60,7 @@ const CreateCourse = () => {
 
   return (
     <div>
-      <Header />
+      <Header auth="admin"/>
       <form onSubmit={handleSubmit} className="ui form">
         <div className="field">
           <label>Exam Code</label>

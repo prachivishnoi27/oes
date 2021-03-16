@@ -1,33 +1,50 @@
-import React, { useState } from 'react';
-import RegisterAdmin from './RegisterAdmin';
-import './Form.css';
+import React, { useState } from "react";
+import RegisterAdmin from "./RegisterAdmin";
+import RegisterStudent from "./RegisterStudent";
+import Header from "../Headers/Header";
+import "./Form.css";
 
 const Signup = () => {
   const [user, setUser] = useState({
-    admin: 'active',
-    student: ''
+    admin: "active",
+    student: "",
   });
 
   const handleClick = (e) => {
     const { id } = e.target;
-    const _user = { admin: '', student: ''};
-    if(id === 'admin'){
-      _user.admin = 'active';
-    }else {
-      _user.student = 'active';
+    const _user = { admin: "", student: "" };
+    if (id === "admin") {
+      _user.admin = "active";
+    } else {
+      _user.student = "active";
     }
-    setUser(_user)
-  } 
+    setUser(_user);
+  };
 
   return (
-    <div className="main-form">
-      <div className="ui secondary menu">
-        <div onClick={handleClick} id="admin" className={`${user.admin} item`}>Administrator</div>
-        <div onClick={handleClick} className={`${user.student} item`} id="student">Student</div>
+    <div>
+      <Header auth="null" />
+      <div className="main-form">
+        <div className="ui secondary menu">
+          <div
+            onClick={handleClick}
+            id="admin"
+            className={`${user.admin} item`}
+          >
+            Administrator
+          </div>
+          <div
+            onClick={handleClick}
+            className={`${user.student} item`}
+            id="student"
+          >
+            Student
+          </div>
+        </div>
+        {user.admin === "active" ? <RegisterAdmin /> : <RegisterStudent />}
       </div>
-      {user.admin === 'active'? <RegisterAdmin />: 'Student Signup'}
     </div>
-  )
-}
+  );
+};
 
 export default Signup;

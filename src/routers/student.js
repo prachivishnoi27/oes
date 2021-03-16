@@ -5,7 +5,10 @@ const studentAuth = require('../middlewares/studentAuth');
 const router = new express.Router();
 
 router.post('/student', async (req,res) => {
-  // console.log(req.body)
+  // console.log(req.body);
+  if(req.body.school === "") delete req.body.school;
+  else if(req.body.collage === "") delete req.body.collage;
+  // console.log(req.body);
   const student = new Student(req.body);
   try {
     await student.save()
@@ -17,6 +20,7 @@ router.post('/student', async (req,res) => {
 })
 
 router.post('/student/login', async (req,res) => {
+  console.log(req.body)
   try {
     const student = await Student.findByCredentials(req.body.email, req.body.password)
     const token = await student.generateAuthToken()

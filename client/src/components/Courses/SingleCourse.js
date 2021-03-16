@@ -45,7 +45,7 @@ const SingleCourse = () => {
 
   return (
     <div>
-      <Header />
+      <Header auth="admin"/>
       <h2>Course Code: {code}</h2>
       <h2 >Course Name: {name}</h2>
       <h3>Questions</h3>

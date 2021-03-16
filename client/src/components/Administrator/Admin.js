@@ -10,7 +10,7 @@ const Admin = () => {
       try {
         const response = await axios({
           method: "get",
-          url: "http:localhost:5000/admin/me"
+          url: "http://localhost:5000/admin/me"
         })
 
         console.log(response.data);
@@ -23,7 +23,7 @@ const Admin = () => {
 
   return (
     <div>
-      <Header />
+      <Header auth="admin"/>
       <div className="ui items">{data}</div>
       <button className="ui teal button">Edit Profile</button>
     </div>

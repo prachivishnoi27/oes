@@ -66,7 +66,7 @@ const Addques = () => {
 
   return (
     <div>
-      <Header />
+      <Header auth="admin"/>
       <div>Add question to Course Code: {code} </div>
       <form onSubmit={handleSubmit} className="ui form">
         <div className="field">

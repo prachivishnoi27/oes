@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
-import SignedHeader from './SignedHeader';
-import UnSignedHeader from './UnsignedHeader';
+import React from "react";
+import UnAuthHeader from "./UnAuthHeader";
+import AdminHeader from "./AdminHeader";
+import StudentHeader from "./StudentHeader";
 
-const Header = () => {
-  const [isSignedIn, setIsSignedIn] = useState('false');
-  useEffect(() => {
-    setIsSignedIn(localStorage.getItem('isSignedIn'));
-  }, [localStorage.getItem('isSignedIn')])
-  return (
-    <div className="ui menu">
-      <Link to="/" className="item">Online Examination system</Link>
-      {isSignedIn === 'true'? <SignedHeader />: <UnSignedHeader />}
-    </div>
-  );
+const Header = ({ auth }) => {
+  if (auth === 'admin') {
+    return <AdminHeader />;
+  }
+
+  if (auth === 'student') {
+    return <StudentHeader />;
+  }
+
+  return <UnAuthHeader />;
 };
 
 export default Header;
