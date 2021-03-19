@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import Header from "../Headers/Header";
+import AdminHeader from "../Headers/AdminHeader";
 import axios from "axios";
 
 const SingleCourse = () => {
@@ -45,7 +45,7 @@ const SingleCourse = () => {
 
   return (
     <div>
-      <Header auth="admin"/>
+      <AdminHeader/>
       <h2>Course Code: {code}</h2>
       <h2 >Course Name: {name}</h2>
       <h3>Questions</h3>

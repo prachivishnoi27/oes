@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Header from "../Headers/Header";
+import AdminHeader from "../Headers/AdminHeader";
 
 const CreateCourse = () => {
   const [courseData, setCourseData] = useState({
@@ -60,7 +60,7 @@ const CreateCourse = () => {
 
   return (
     <div>
-      <Header auth="admin"/>
+      <AdminHeader/>
       <form onSubmit={handleSubmit} className="ui form">
         <div className="field">
           <label>Exam Code</label>

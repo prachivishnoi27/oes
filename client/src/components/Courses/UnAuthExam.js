@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import Header from "../Headers/Header";
+import UnAuthHeader from "../Headers/UnAuthHeader";
 
 const UnAuthExam = () => {
   const { code } = useParams();
@@ -41,7 +41,7 @@ const UnAuthExam = () => {
 
   return (
     <div>
-      <Header auth="null"/>
+      <UnAuthHeader/>
       <div>
       {Object.keys(detail).length === 0 ? "" : renderDetails()}
       </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Header from '../Headers/Header';
+import AdminHeader from '../Headers/AdminHeader';
 
 const AdminCourses = () => {
   const [mycourses, setMycourses] = useState([]);
@@ -13,7 +13,7 @@ const AdminCourses = () => {
     // console.log(token);
         const response = await axios({
           method: 'get',
-          url: 'http:localhost:5000/courses', 
+          url: 'http://localhost:5000/courses', 
           headers: { Authorization: `Bearer ${token}` }
         })
         // console.log(response.data)
@@ -47,7 +47,7 @@ const AdminCourses = () => {
 
   return (
     <div>
-      <Header auth="admin"/>
+      <AdminHeader/>
       <Link to="/createcourse" className="ui primary button right"><i className="plus icon"></i>Create New Exam</Link>
       <br></br>
       <div className="ui items celled table">

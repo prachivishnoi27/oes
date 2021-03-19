@@ -1,7 +1,7 @@
 import React, {useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import Header from '../Headers/Header';
+import AdminHeader from '../Headers/AdminHeader';
 
 const Addques = () => {
   const { code } = useParams();
@@ -66,7 +66,7 @@ const Addques = () => {
 
   return (
     <div>
-      <Header auth="admin"/>
+      <AdminHeader/>
       <div>Add question to Course Code: {code} </div>
       <form onSubmit={handleSubmit} className="ui form">
         <div className="field">

@@ -18,7 +18,7 @@ const RegisterStudent = () => {
   useEffect( () => {}, [register]);
 
   if(register === 'true'){
-    return <Redirect to="/"/>;
+    return <Redirect to="/allexams"/>;
   }
 
   const sendInfoToServer = async () => {

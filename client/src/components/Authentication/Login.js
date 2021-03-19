@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Select from "react-select";
+import UnAuthHeader from '../Headers/UnAuthHeader';
 import "./Form.css";
-import Header from '../Headers/Header';
+
 import axios from "axios";
 
 const Login = () => {
@@ -95,7 +96,7 @@ const Login = () => {
 
   return (
     <div>
-      <Header auth="null"/>
+      <UnAuthHeader />
       <div className="main-form">
         <h2 style={{ textAlign: "center" }}>Login</h2>
         <form onSubmit={handleSubmit} className="ui form">

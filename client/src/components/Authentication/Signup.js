@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import RegisterAdmin from "./RegisterAdmin";
 import RegisterStudent from "./RegisterStudent";
-import Header from "../Headers/Header";
+import UnAuthHeader from "../Headers/UnAuthHeader";
 import "./Form.css";
 
 const Signup = () => {
@@ -23,7 +23,7 @@ const Signup = () => {
 
   return (
     <div>
-      <Header auth="null" />
+      <UnAuthHeader />
       <div className="main-form">
         <div className="ui secondary menu">
           <div

@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Header from '../Headers/Header';
+import StudentHeader from '../Headers/StudentHeader';
 
 const AllExams = () => {
   const [list, setList] = useState([]);
@@ -46,7 +46,7 @@ const AllExams = () => {
 
   return (
     <div>
-      <Header auth="student"/>
+      <StudentHeader/>
       All Exams
       <br></br>
       <div className="ui items celled table">

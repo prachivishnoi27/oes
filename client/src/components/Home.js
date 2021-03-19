@@ -1,6 +1,6 @@
 import "./Home.css";
 import React  from "react";
-import Header from './Headers/Header';
+import UnAuthHeader from './Headers/UnAuthHeader';
 
 const Home = () => {
   console.log(localStorage.getItem('isSignedInStudent'), 'std');
@@ -8,7 +8,7 @@ const Home = () => {
 
   return (
     <div>
-      <Header auth="null"/>
+      <UnAuthHeader/>
       <div className="top-center">
         <h1>Online Examination system</h1>
       </div>
