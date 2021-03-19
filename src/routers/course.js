@@ -40,11 +40,26 @@ router.get('/allcourses', async (req,res) => {
   }
 })
 
+router.get('/:code', async (req, res) => {
+  const code = req.params.code
+  try {
+    const course = await Course.findOne({ code })
+    // console.log(course)
+    if(!course){
+      return res.status(404).send()
+    }
+    course.questions = [];
+    res.status(200).send(course)
+  } catch (e) {
+    res.status(500).send(e)
+  }
+})
+
 router.get('/courses/:code', adminAuth, async (req, res) => {
   const code = req.params.code
   try {
     const course = await Course.findOne({ code, owner: req.admin._id })
-    console.log(course)
+    // console.log(course)
     if(!course){
       return res.status(404).send()
     }

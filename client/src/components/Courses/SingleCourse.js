@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import Header from "../Header";
+import Header from "../Headers/Header";
 import axios from "axios";
 
 const SingleCourse = () => {
@@ -23,7 +23,7 @@ const SingleCourse = () => {
         console.log(e, "in catch");
       }
     })();
-  }, []);
+  }, [code]);
 
   const renderList = () => {
     return ques.map( (question) => {
@@ -45,7 +45,7 @@ const SingleCourse = () => {
 
   return (
     <div>
-      <Header />
+      <Header auth="admin"/>
       <h2>Course Code: {code}</h2>
       <h2 >Course Name: {name}</h2>
       <h3>Questions</h3>

@@ -5,6 +5,11 @@ const bcrypt = require("bcryptjs");
 
 const adminSchema = new mongoose.Schema(
   {
+    name: {
+      type: String,
+      required: true,
+      trim: true
+    },
     email: {
       type: String,
       required: true,
@@ -50,7 +55,6 @@ adminSchema.virtual('courses', {
 
 adminSchema.methods.generateAuthToken = async function () {
   const admin = this;
-  console.log(admin);
   const token = jwt.sign(
     { _id: admin._id.toString() },
     "online examination system"

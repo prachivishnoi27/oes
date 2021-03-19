@@ -15,6 +15,20 @@ const courseSchema = new mongoose.Schema({
     required: true,
     ref: 'Admin'
   },
+  marking: {
+    positive: {
+      type: String,
+      required: true
+    },
+    negative: {
+      type: String,
+      required: true
+    }
+  },
+  time: {
+    type: String,
+    required: true
+  },
   questions: [{
     ques: {
       type: String

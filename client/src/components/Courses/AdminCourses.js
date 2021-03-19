@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Axios from '../../apis/Axios';
-import Header from '../Header';
+import axios from 'axios';
+import Header from '../Headers/Header';
 
 const AdminCourses = () => {
   const [mycourses, setMycourses] = useState([]);
   
   useEffect(() => {
-    const token = localStorage.getItem('token') ?? '';
-    console.log(token);
     (async () => {
-      const response = await Axios.get('/courses', {
-        headers: {
-          Authorization: token
-        }
-      })
-      console.log(response.data)
+      try {
+        const token = localStorage.getItem('token') ?? '';
+    // console.log(token);
+        const response = await axios({
+          method: 'get',
+          url: 'http:localhost:5000/courses', 
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        // console.log(response.data)
       setMycourses(response.data);
+      } catch (e) {
+        console.log('Error in catch: ', e)
+      }
     })()
   }, []);
 
@@ -43,8 +47,8 @@ const AdminCourses = () => {
 
   return (
     <div>
-      <Header />
-      <Link to="/createcourse" className="ui primary button right"><i className="plus icon"></i>Create New Course</Link>
+      <Header auth="admin"/>
+      <Link to="/createcourse" className="ui primary button right"><i className="plus icon"></i>Create New Exam</Link>
       <br></br>
       <div className="ui items celled table">
         {mycourses.length === 0 ? "" : renderList()}
