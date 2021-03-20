@@ -1,6 +1,7 @@
 const express = require('express')
 const Course = require('../models/course')
 const adminAuth = require('../middlewares/adminAuth')
+const studentAuth = require('../middlewares/studentAuth')
 const router = new express.Router()
 
 router.post('/courses', adminAuth, async (req, res) => {
@@ -69,6 +70,18 @@ router.get('/courses/:code', adminAuth, async (req, res) => {
   }
 })
 
+router.get('/courses/:code/questions', studentAuth, async (req, res) => {
+  try {
+    const course = await Course.findOne({ code: req.params.code })
+    if(!course) { 
+      return res.status(404).send()
+    }
+    res.status(200).send(course.questions)
+  } catch (e) {
+    res.status(500).send(e)
+  }
+})
+
 router.patch('/courses/:code', adminAuth, async (req, res) => {
   const updates = Object.keys(req.body)
   const allowedUpdates = ['questions', 'name']
@@ -95,10 +108,7 @@ router.patch('/courses/:code', adminAuth, async (req, res) => {
 router.patch('/courses/:code/addques', adminAuth, async (req, res) => {
   try {
     const course = await Course.findOne({ code: req.params.code, owner: req.admin._id})
-    // console.log(course.questions.length);
-    // console.log(req.body);
     const modifiedCourse = await course.addNewQues(req.body);
-    // console.log(modifiedCourse.length);
     res.status(200).send(modifiedCourse);
   } catch (e) {
     res.status(400).send();

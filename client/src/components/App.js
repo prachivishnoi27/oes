@@ -9,9 +9,11 @@ import CreateCourse from './Courses/CreateCourse';
 import Addques from './Courses/AddQues';
 import Login from './Authentication/Login';
 import SingleCourse from './Courses/SingleCourse';
-import UnAuthExam from './Courses/UnAuthExam';
+import UnAuthExam from './Student/StudentExam';
 import Signup from './Authentication/Signup';
-import AllExams from './Courses/AllExams';
+import AllExams from './Student/AllExams';
+import Exam from './Student/Exam';
+import Student from './Student/Student';
 import Home from './Home';
 import New from './new';
 
@@ -29,13 +31,14 @@ const App = () => {
         <Route path="/registeradmin" component={RegisterAdmin} exact/>
         <Route path="/registerstudent" component={RegisterStudent} exact />
         <Route path="/admin" component={Admin} exact/>
+        <Route path="/student" component={Student} exact />
         <Route path="/createcourse" component={CreateCourse} exact />
         <Route path="/course/:code/addques" exact component={Addques}/>
         <Route path="/login" component={Login} exact/>
         <Route path="/course/:code" component={SingleCourse} exact/>
         <Route path="/:code" component={UnAuthExam} exact/>
+        <Route path="/exam/:code" component={Exam} exact />
         <Route path="/new" component={New} exact/>
-        {/* <Route path="/exam/:code" component={} /> */}
       </Switch>
       </div>
     </BrowserRouter>

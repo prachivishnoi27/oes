@@ -16,7 +16,7 @@ const Login = () => {
 
   useEffect( () => {}, [log]);
   if(log === 'Student'){
-    return <Redirect to="/allexams" />
+    return <Redirect to="/student" />
   }
 
   if(log === 'Admin'){
@@ -49,7 +49,7 @@ const Login = () => {
         try {
           const response = await axios({
             method: "post",
-            url: "http:localhost:5000/admin/login",
+            url: "http://localhost:5000/admin/login",
             data: payload,
           });
           setUser((prevState) => ({

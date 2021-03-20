@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import UnAuthHeader from "../Headers/UnAuthHeader";
+import StudentHeader from "../Headers/StudentHeader";
 
-const UnAuthExam = () => {
+const StudentExam = () => {
   const { code } = useParams();
   const [detail, setDetail] = useState({});
 
@@ -41,14 +41,14 @@ const UnAuthExam = () => {
 
   return (
     <div>
-      <UnAuthHeader/>
+      <StudentHeader />
       <div>
       {Object.keys(detail).length === 0 ? "" : renderDetails()}
       </div>
       <br></br>
-      <Link to="" className="ui button primary">Start Exam</Link>
+      <Link to={`/exam/${code}`} className="ui button primary">Start Exam</Link>
     </div>
   );
 };
 
-export default UnAuthExam;
+export default StudentExam;
