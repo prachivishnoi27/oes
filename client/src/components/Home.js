@@ -1,14 +1,14 @@
 import "./Home.css";
-import React  from "react";
-import UnAuthHeader from './Headers/UnAuthHeader';
+import React from "react";
+import UnAuthHeader from "./Headers/UnAuthHeader";
 
 const Home = () => {
-  console.log(localStorage.getItem('isSignedInStudent'), 'std');
-  console.log(localStorage.getItem('isSignedInAdmin'), 'admin')
+  console.log(localStorage.getItem("isSignedInStudent"), "std");
+  console.log(localStorage.getItem("isSignedInAdmin"), "admin");
 
   return (
     <div>
-      <UnAuthHeader/>
+      <UnAuthHeader />
       <div className="top-center">
         <h1>Online Examination system</h1>
       </div>
