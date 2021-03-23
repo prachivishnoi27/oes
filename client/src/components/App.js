@@ -14,6 +14,7 @@ import Signup from './Authentication/Signup';
 import AllExams from './Student/AllExams';
 import Exam from './Student/Exam';
 import Student from './Student/Student';
+import Result from './Student/Result';
 import Home from './Home';
 import New from './new';
 
@@ -38,6 +39,7 @@ const App = () => {
         <Route path="/course/:code" component={SingleCourse} exact/>
         <Route path="/:code" component={UnAuthExam} exact/>
         <Route path="/exam/:code" component={Exam} exact />
+        <Route path="/result/:code" component={Result} exact/>
         <Route path="/new" component={New} exact/>
       </Switch>
       </div>

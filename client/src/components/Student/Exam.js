@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Redirect } from "react-router-dom";
 import StudentHeader from "../Headers/StudentHeader";
 import { Form, Radio } from "semantic-ui-react";
 
@@ -22,7 +22,7 @@ const Questions = ({ answer, setAnswer, question}) => {
         </Form.Field>
         <Form.Field className="content">
           <Radio
-            label={question.options[0].a}
+            label={question.options[0].value}
             name="answer"
             value="a"
             checked={answer === "a"? true: false}
@@ -33,7 +33,7 @@ const Questions = ({ answer, setAnswer, question}) => {
         </Form.Field>
         <Form.Field className="content">
           <Radio
-            label={question.options[1].b}
+            label={question.options[1].value}
             name="answer"
             value="b"
             checked={answer === "b"? true:false}
@@ -44,7 +44,7 @@ const Questions = ({ answer, setAnswer, question}) => {
         </Form.Field>
         <Form.Field className="content">
           <Radio
-            label={question.options[2].c}
+            label={question.options[2].value}
             name="answer"
             value="c"
             checked={answer === "c"? true:false}
@@ -55,7 +55,7 @@ const Questions = ({ answer, setAnswer, question}) => {
         </Form.Field>
         <Form.Field className="content">
           <Radio
-            label={question.options[3].d}
+            label={question.options[3].value}
             name="answer"
             value="d"
             checked={answer === "d"? true:false}
@@ -71,6 +71,7 @@ const Questions = ({ answer, setAnswer, question}) => {
 
 const Exam = () => {
   const { code } = useParams();
+  const [submitted, setSubmitted] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
 
@@ -84,15 +85,38 @@ const Exam = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         setQuestions(response.data);
-        // setAnswers(new Array(response.data.length));
       } catch (e) {
         console.log("error in catch", e);
       }
     })();
   }, []);
 
+  if(submitted === true) {
+    return <Redirect to={`/result/${code}`}></Redirect>;
+  }
+
   const handleSubmit = () => {
     console.log('Answer: ', answers);
+    const postAnswer = [];
+    for ( var ans in answers ) {
+      postAnswer.push({ value: answers[ans]})
+    }
+    console.log('Post answers length: ', postAnswer.length);
+    const payload = { option: postAnswer };
+    (async () => {
+      const token = localStorage.getItem('token');
+      try {
+        await axios({
+          method: 'post',
+          url: `http://localhost:5000/result/${code}`,
+          data: payload,
+          headers: { Authorization: `Bearer ${token}`}
+        })
+        setSubmitted(true);
+      } catch (e) {
+        console.log('Cannot post answers by student to db');
+      }
+    })();
   }
 
   console.log("Answee values ::: ", answers)
@@ -102,8 +126,6 @@ const Exam = () => {
       return <Questions
             answer={answers[i]}
             setAnswer={(value) => {
-              // const newAns = answers;
-              // newAns[i] = value;
               setAnswers({
                 ...answers,
                 [i]: value, 

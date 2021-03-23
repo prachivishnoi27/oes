@@ -82,6 +82,23 @@ router.get('/courses/:code/questions', studentAuth, async (req, res) => {
   }
 })
 
+router.get('/courses/:code/answers', async (req, res) => {
+  try {
+    const course = await Course.findOne({ code: req.params.code })
+    if(!course) { 
+      return res.status(404).send()
+    }
+    const answers = [];
+    course.questions.map( question => {
+      answers.push(question.answer) 
+    })
+    // console.log(answers.length);
+    res.status(200).send(answers)
+  } catch (e) {
+    res.status(500).send(e)
+  }
+})
+
 router.patch('/courses/:code', adminAuth, async (req, res) => {
   const updates = Object.keys(req.body)
   const allowedUpdates = ['questions', 'name']

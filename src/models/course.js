@@ -34,20 +34,11 @@ const courseSchema = new mongoose.Schema({
       type: String
     },
     options: [{
-      a: {
-        type: String
-      },
-      b: {
-        type: String
-      },
-      c: {
-        type: String
-      },
-      d: {
+      value: {
         type: String
       }
     }],
-    ans: {
+    answer: {
       type: String
     }
   }]
