@@ -15,15 +15,9 @@ const courseSchema = new mongoose.Schema({
     required: true,
     ref: 'Admin'
   },
-  marking: {
-    positive: {
-      type: String,
-      required: true
-    },
-    negative: {
-      type: String,
-      required: true
-    }
+  level: {
+    type: String,
+    required: true
   },
   time: {
     type: String,
@@ -39,6 +33,12 @@ const courseSchema = new mongoose.Schema({
       }
     }],
     answer: {
+      type: String
+    },
+    marks_correct: {
+      type: String
+    },
+    marks_wrong: {
       type: String
     }
   }]

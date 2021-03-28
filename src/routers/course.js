@@ -10,7 +10,7 @@ router.post('/courses', adminAuth, async (req, res) => {
     owner: req.admin._id
   })
 
-  console.log(course);
+  // console.log(course);
 
   try {
     await course.save()
@@ -131,5 +131,13 @@ router.patch('/courses/:code/addques', adminAuth, async (req, res) => {
     res.status(400).send();
   }
 })
+
+// router.patch('/courses/:code/modifyques', adminAuth, async (req, res) => {
+//   try {
+
+//   } catch (e) {
+
+//   }
+// })
 
 module.exports = router

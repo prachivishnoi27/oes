@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import AdminHeader from '../Headers/AdminHeader';
 
-const AdminCourses = () => {
+const AdminExams = () => {
   const [mycourses, setMycourses] = useState([]);
   
   useEffect(() => {
@@ -27,13 +27,12 @@ const AdminCourses = () => {
   const renderList = () => {
     return mycourses.map((course) => {
       return (
-        <div className="item" style={{'border': '1px solid #c9cfd1'}} key={course.code}>
+        <div className="card" key={course.code}>
           <div 
-          className="single line"
-          style={{ padding: "5px"}}>
+          className="content">
             <Link to={`/course/${course.code}`} style={{'color': '#373e40'}}>
-            <div className="content menu">
-              Course CODE: {course.code}
+            <div className="header">
+              Exam Code: {course.code}
               <div className="description">
                 {course.name}
               </div>
@@ -50,11 +49,12 @@ const AdminCourses = () => {
       <AdminHeader/>
       <Link to="/createcourse" className="ui primary button right"><i className="plus icon"></i>Create New Exam</Link>
       <br></br>
-      <div className="ui items celled table">
+      <br></br>
+      <div className="ui cards">
         {mycourses.length === 0 ? "" : renderList()}
       </div>
     </div>
   )
 }
 
-export default AdminCourses;
+export default AdminExams;

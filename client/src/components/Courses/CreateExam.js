@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import AdminHeader from "../Headers/AdminHeader";
 
-const CreateCourse = () => {
+const CreateExam = () => {
   const [courseData, setCourseData] = useState({
     code: "",
     name: "",
-    p_marks: "",
-    n_marks: "",
     time: "",
+    level: ""
   });
 
   const createRequest = async (payload) => {
@@ -20,7 +19,7 @@ const CreateCourse = () => {
         data: payload,
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log(response);
+      // console.log(response);
       console.log("Course created successfully");
     } catch (e) {
       console.log(e);
@@ -33,19 +32,15 @@ const CreateCourse = () => {
     const payload = {
       code: courseData.code,
       name: courseData.name,
-      marking: {
-        positive: courseData.p_marks,
-        negative: courseData.n_marks
-      },
-      time: courseData.time
+      time: courseData.time,
+      level: courseData.level
     };
     createRequest(payload);
     setCourseData({
       code: "",
       name: "",
-      p_marks: "",
-      n_marks: "",
-      time: ""
+      time: "",
+      level: ""
     });
   };
 
@@ -93,36 +88,21 @@ const CreateCourse = () => {
           />
         </div>
         <div className="field">
-          <label>Marking</label>
-          <div>
-            {" "}
-            Positive:
-            <input
-              type="text"
-              placeholder="+1"
-              id="p_marks"
-              value={courseData.p_marks}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            {" "}
-            Negative:
-            <input
-              type="text"
-              placeholder="-1"
-              id="n_marks"
-              value={courseData.n_marks}
-              onChange={handleChange}
-            />
-          </div>
+          <label>Level: </label>
+          <input
+            type="text"
+            placeholder="Beginner"
+            id="level"
+            value={courseData.level}
+            onChange={handleChange}
+          />
         </div>
         <button onClick={handleSubmit} className="ui primary button">
-          Create examination
+          Create Exam
         </button>
       </form>
     </div>
   );
 };
 
-export default CreateCourse;
+export default CreateExam;
