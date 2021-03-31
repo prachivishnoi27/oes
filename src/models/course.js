@@ -46,12 +46,19 @@ const courseSchema = new mongoose.Schema({
   timestamps: true
 })
 
-courseSchema.methods.addNewQues = async function ( ques ) {
+courseSchema.methods.addNewQues = async function ( question ) {
   const course = this;
-  course.questions = course.questions.concat(ques);
+  course.questions = course.questions.concat(question);
   await course.save();
   return course.questions;
 };
+
+courseSchema.methods.modifyQues = async function ( questions ) {
+  const course = this;
+  course.questions = questions;
+  await course.save();
+  return course.questions;
+} 
 
 const Course = mongoose.model('Course', courseSchema)
 

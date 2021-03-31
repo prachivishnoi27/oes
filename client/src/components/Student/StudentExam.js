@@ -26,15 +26,7 @@ const StudentExam = () => {
       <div>
         <h2>Exam Code: {code}</h2>
         <h2>Topic: {detail.name}</h2>
-        <div className="ui bulleted list">
-        <div className="item">
-          There is +{detail.marking.positive} marks for every right question
-        </div>
-        <div className="item">
-            There is -{detail.marking.negative} marks for every wrong question.
-        </div>
         <div className="item">Time: {detail.time} minutes</div>
-        </div>
       </div>
     )
   }

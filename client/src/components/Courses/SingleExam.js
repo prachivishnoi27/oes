@@ -70,7 +70,7 @@ const SingleExam = () => {
       <h2>Exam Name: {exam.name}</h2>
       <h3>Questions</h3>
       <div className="ui list">{renderList()}</div>
-      <Link to={`/course/${code}/addques`} className="ui button teal">
+      <Link to={`/course/${code}/addques`} style={{marginBottom: '10px'}} className="ui button teal">
         Add Question
       </Link>
     </div>

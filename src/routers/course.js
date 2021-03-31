@@ -56,6 +56,25 @@ router.get('/:code', async (req, res) => {
   }
 })
 
+router.get('/answers/:code', async (req, res) => {
+  // console.log(req.params.code);
+  try {
+    const course = await Course.findOne({ code: req.params.code }, {}, { sort: { 'created_at' : -1 } })
+    if(!course) { 
+      return res.status(404).send()
+    }
+    const answers = [{}];
+    course.questions.map( question => {
+      // answers.push(question.answer);
+      answers.push({ answer: question.answer, correct: question.marks_correct, wrong: question.marks_wrong}) 
+    })
+    // console.log(answers.length);
+    res.status(200).send(answers)
+  } catch (e) {
+    res.status(500).send(e)
+  }
+})
+
 router.get('/courses/:code', adminAuth, async (req, res) => {
   const code = req.params.code
   try {
@@ -82,20 +101,14 @@ router.get('/courses/:code/questions', studentAuth, async (req, res) => {
   }
 })
 
-router.get('/courses/:code/answers', async (req, res) => {
+router.get('/courses/:code/:quesid', adminAuth, async (req, res) => {
   try {
-    const course = await Course.findOne({ code: req.params.code })
-    if(!course) { 
-      return res.status(404).send()
-    }
-    const answers = [];
-    course.questions.map( question => {
-      answers.push(question.answer) 
-    })
-    // console.log(answers.length);
-    res.status(200).send(answers)
+    const course = await Course.findOne({ code: req.params.code, owner: req.admin._id });
+    const questions = course.questions;
+    const quesIndex = questions.findIndex(ques => ques._id == req.params.quesid);
+    res.send(questions[quesIndex]);
   } catch (e) {
-    res.status(500).send(e)
+    res.status(400).send(e);
   }
 })
 
@@ -128,16 +141,24 @@ router.patch('/courses/:code/addques', adminAuth, async (req, res) => {
     const modifiedCourse = await course.addNewQues(req.body);
     res.status(200).send(modifiedCourse);
   } catch (e) {
-    res.status(400).send();
+    res.status(400).send(e);
   }
 })
 
-// router.patch('/courses/:code/modifyques', adminAuth, async (req, res) => {
-//   try {
-
-//   } catch (e) {
-
-//   }
-// })
+router.patch('/courses/:code/:quesid', adminAuth, async (req, res) => {
+  try {
+    const course = await Course.findOne({ code: req.params.code, owner: req.admin._id });
+    const questions = course.questions;
+    // console.log(questions);
+    // console.log(req.params.quesid);
+    const modifyQuesIndex = questions.findIndex(ques => ques._id == req.params.quesid);
+    // console.log(modifyQuesIndex)
+    questions[modifyQuesIndex] = req.body;
+    const modifiedQuestions = await course.modifyQues(questions);
+    res.send(modifiedQuestions);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+})
 
 module.exports = router

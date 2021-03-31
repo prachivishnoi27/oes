@@ -106,7 +106,7 @@ const Exam = () => {
     (async () => {
       const token = localStorage.getItem('token');
       try {
-        await axios({
+        const response = await axios({
           method: 'post',
           url: `http://localhost:5000/result/${code}`,
           data: payload,
