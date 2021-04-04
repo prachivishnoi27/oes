@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams, Link, Redirect } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import StudentHeader from "../Headers/StudentHeader";
 import { Form, Radio } from "semantic-ui-react";
 
@@ -91,20 +91,17 @@ const Exam = () => {
     })();
   }, []);
 
-  if(submitted === true) {
-    return <Redirect to={`/result/${code}`}></Redirect>;
-  }
-
   const handleSubmit = () => {
-    console.log('Answer: ', answers);
-    const postAnswer = [];
+    (async () => {
+      console.log('Answer: ', answers);
+      const token = localStorage.getItem('token');
+      const postAnswer = [];
     for ( var ans in answers ) {
       postAnswer.push({ value: answers[ans]})
     }
-    console.log('Post answers length: ', postAnswer.length);
+    // console.log('Post answers length: ', postAnswer.length);
     const payload = { option: postAnswer };
-    (async () => {
-      const token = localStorage.getItem('token');
+      console.log(payload);
       try {
         const response = await axios({
           method: 'post',
@@ -112,6 +109,7 @@ const Exam = () => {
           data: payload,
           headers: { Authorization: `Bearer ${token}`}
         })
+        console.log(response);
         setSubmitted(true);
       } catch (e) {
         console.log('Cannot post answers by student to db');
@@ -138,6 +136,7 @@ const Exam = () => {
 
   return (
     <div>
+      {submitted && <Redirect to={`/result/${code}`} />}
       <StudentHeader />
       <div>Exam: {code}</div>
       <div>
