@@ -1,5 +1,4 @@
 import axios from "axios";
-import { compare } from "bcryptjs";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import AdminHeader from "../Headers/AdminHeader";
