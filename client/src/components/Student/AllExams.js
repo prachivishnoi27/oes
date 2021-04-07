@@ -23,12 +23,12 @@ const AllExams = () => {
   const renderList = () => {
     return list.map((course) => {
       return (
-        <div className="item" style={{'border': '1px solid #c9cfd1'}} key={course.code}>
+        <div className="card" key={course.code}>
           <div 
-          className="single line"
+          className="content"
           style={{ padding: "5px"}}>
             <Link to={`/${course.code}`} style={{'color': '#373e40'}}>
-            <div className="content menu">
+            <div className="header">
               Exam Code: {course.code}
               <div className="description">
                 Exam Topic: {course.name}
@@ -49,7 +49,7 @@ const AllExams = () => {
       <StudentHeader/>
       All Exams
       <br></br>
-      <div className="ui items celled table">
+      <div style={{ marginTop: '10px'}} className="ui cards">
         {list.length === 0 ? "" : renderList()}
       </div>
     </div>

@@ -1,5 +1,6 @@
 const express = require('express');
 const Student = require('../models/student');
+const Result = require('../models/result');
 const studentAuth = require('../middlewares/studentAuth');
 
 const router = new express.Router();
@@ -42,6 +43,37 @@ router.post('/student/logout', studentAuth, async (req, res) => {
 
 router.get('/student/me', studentAuth, async (req,res) => {
   res.send(req.student)
+})
+
+router.post('/result/:code', studentAuth, async (req,res) => {
+  const result = new Result({
+    code: req.params.code,
+    student_id: req.student._id,
+    student_roll: req.student.rollno,
+    student_name: req.student.name,
+    answers: req.body.option 
+  })
+  console.log(result)
+  try {
+    await result.save()
+    res.status(201).send(result)
+  } catch (e) {
+    res.status(400).send(e)
+  }
+})
+
+router.get('/result/:code', studentAuth, async (req,res) => {
+  try {
+    const result = await Result.findOne({ code: req.params.code})
+    const answer = [];
+    for( var i in result.answers){
+      answer.push(result.answers[i].value)
+    }
+    console.log(answer);
+    res.send(answer);
+  } catch (e) {
+    res.status(400).send(e);
+  }
 })
 
 module.exports = router;

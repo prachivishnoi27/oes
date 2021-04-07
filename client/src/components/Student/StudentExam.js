@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import UnAuthHeader from "../Headers/UnAuthHeader";
+import StudentHeader from "../Headers/StudentHeader";
 
-const UnAuthExam = () => {
+const StudentExam = () => {
   const { code } = useParams();
   const [detail, setDetail] = useState({});
 
@@ -26,29 +26,21 @@ const UnAuthExam = () => {
       <div>
         <h2>Exam Code: {code}</h2>
         <h2>Topic: {detail.name}</h2>
-        <div className="ui bulleted list">
-        <div className="item">
-          There is +{detail.marking.positive} marks for every right question
-        </div>
-        <div className="item">
-            There is -{detail.marking.negative} marks for every wrong question.
-        </div>
         <div className="item">Time: {detail.time} minutes</div>
-        </div>
       </div>
     )
   }
 
   return (
     <div>
-      <UnAuthHeader/>
+      <StudentHeader />
       <div>
       {Object.keys(detail).length === 0 ? "" : renderDetails()}
       </div>
       <br></br>
-      <Link to="" className="ui button primary">Start Exam</Link>
+      <Link to={`/exam/${code}`} className="ui button primary">Start Exam</Link>
     </div>
   );
 };
 
-export default UnAuthExam;
+export default StudentExam;

@@ -1,10 +1,17 @@
-import React, {useState } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import AdminHeader from '../Headers/AdminHeader';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import AdminHeader from "../Headers/AdminHeader";
 
-const Addques = () => {
-  const { code } = useParams();
+const ModifyQues = () => {
+  const { code, quesid } = useParams();
+  const [question, setQuestion] = useState({
+      ques: '',
+      answer: '',
+      options: [],
+      marks_wrong: '',
+      marks_correct: ''
+  });
   const [ques, setQues] = useState('');
   const [options, setOptions] = useState({
     a: '',
@@ -16,62 +23,73 @@ const Addques = () => {
   const [marks_correct, setMarks_correct] = useState('');
   const [marks_wrong, setMarks_wrong] = useState('');
 
-  const addques = async (payload) => {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await axios({
-        method: "patch",
-        url: `http://localhost:5000/courses/${code}/addques`,
-        data: payload,
-        headers: { Authorization: `Bearer ${token}`}
-      })
-      console.log(response.data);
-      console.log('Question added successfully');
-    } catch (e) {
-      console.log(e, 'in catch');
-    }
-  }
+  useEffect(() => {
+    (async () => {
+      const token = localStorage.getItem("token");
+      try {
+        const { data } = await axios({
+          method: "get",
+          url: `http://localhost:5000/courses/${code}/${quesid}`,
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setQuestion(data);
+        setQues(data.ques);
+        setAns(data.answer);
+        setMarks_wrong(data.marks_wrong)
+        setMarks_correct(data.marks_correct);
+        const obj = {};
+        obj.a = data.options[0].value;
+        obj.b = data.options[1].value;
+        obj.c = data.options[2].value;
+        obj.d = data.options[3].value;
+        setOptions(obj);
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+  }, []);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    // console.log(ques);
-    // console.log(options);
-    // console.log(answer);
-    const payload = {
-      ques,
-      options: [
-        {
-          value: options.a
-        },
-        {
-          value: options.b
-        },
-        {
-          value: options.c
-        },
-        {
-          value: options.d
+      e.preventDefault();
+      console.log(question);
+      const _question = question;
+      _question.ques =  ques;
+      _question.answer = answer;
+      _question.marks_correct = marks_correct;
+      _question.marks_wrong = marks_wrong;
+      _question.options[0].value = options.a;
+      _question.options[1].value = options.b;
+      _question.options[2].value = options.c;
+      _question.options[3].value = options.d;
+      setQuestion(_question);
+      (async () => {
+          const token = localStorage.getItem('token');
+        try {
+            const response = await axios({
+                method: 'patch',
+                url: `http://localhost:5000/courses/${code}/${quesid}`,
+                headers: { Authorization: `Bearer ${token}`},
+                data: question
+            })
+            console.log(response.data.length);
+        } catch (e) {
+            console.log(e);
         }
-      ],
-      answer,
-      marks_correct,
-      marks_wrong
-    }
-    addques(payload);
+      })();
   }
 
   const handleChange = (e) => {
     const { id, value } = e.target;
+    console.log(id, value);
     setOptions((prevState) => ({
       ...prevState,
       [id]: value,
     }));
+    console.log(options);
   }
 
-  return (
-    <div>
-      <AdminHeader/>
-      <h2>Add question to Exam Code: {code} </h2>
+  const renderQuestion = () => {
+    return (
       <form onSubmit={handleSubmit} className="ui form">
         <div className="field">
           <label>Question</label>
@@ -150,14 +168,25 @@ const Addques = () => {
         </div>
         <button
           className="ui button primary"
-          style={{ marginBottom: '10px'}}
+          style={{ marginBottom: "10px" }}
           onClick={handleSubmit}
         >
-          Add Question
+          Save
         </button>
       </form>
-    </div>
-  )
-}
+    );
+  };
 
-export default Addques;
+  return (
+    <div>
+      <AdminHeader />
+      <div>
+        Modify Question Exam code: {code}
+        Question id: {quesid}
+        <div style={{ marginBottom: '10px'}}>{question.options.length === 0? '': renderQuestion()}</div>
+      </div>
+    </div>
+  );
+};
+
+export default ModifyQues;
