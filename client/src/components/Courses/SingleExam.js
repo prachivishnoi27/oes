@@ -57,7 +57,7 @@ const SingleExam = () => {
           </div>
           <br></br>
           <Link to={`/exam/${code}/${question._id}`} className="ui button" style={{ marginRight: '10px'}}>Modify</Link>or
-          <Link style={{ marginLeft: '10px'}} className="ui secondary button"> Delete</Link>
+          <Link to={`/exam/${code}/delete/${question._id}`} style={{ marginLeft: '10px'}} className="ui secondary button"> Delete</Link>
         </div>
       );
     });
