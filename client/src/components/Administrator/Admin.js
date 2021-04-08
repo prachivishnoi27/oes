@@ -14,8 +14,6 @@ const Admin = () => {
           url: "http://localhost:5000/admin/me",
           headers: { Authorization: `Bearer ${token}` }
         })
-
-        console.log(response.data);
         setData(response.data.email);
       } catch (e) {
         console.log('Admin profile page error: ', e);
