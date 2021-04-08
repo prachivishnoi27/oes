@@ -10,8 +10,6 @@ router.post('/courses', adminAuth, async (req, res) => {
     owner: req.admin._id
   })
 
-  // console.log(course);
-
   try {
     await course.save()
     res.status(201).send(course)
@@ -132,6 +130,16 @@ router.patch('/courses/:code', adminAuth, async (req, res) => {
     res.status(200).send(course)
   } catch (e) {
     res.status(400).send(e)
+  }
+})
+
+router.patch('/deleteques/:code/:id', adminAuth, async (req, res) => {
+  try {
+    const course = await Course.findOne({ code: req.params.code, owner: req.admin._id});
+    const modifiedQuestions = await course.deleteQues(req.params.id);
+    res.status(200).send(modifiedQuestions)
+  } catch (e) {
+    res.status(400).send('Cannot delete question')
   }
 })
 

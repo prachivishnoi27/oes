@@ -16,6 +16,7 @@ import Exam from './Student/Exam';
 import Student from './Student/Student';
 import Result from './Student/Result';
 import ModifyQues from './Courses/ModifyQues';
+import DeleteQues from './Courses/DeleteQues';
 import Home from './Home';
 import New from './new';
 
@@ -37,6 +38,7 @@ const App = () => {
         <Route path="/createcourse" component={CreateExam} exact />
         <Route path="/course/:code/addques" exact component={Addques}/>
         <Route path="/exam/:code/:quesid" exact component={ModifyQues} />
+        <Route path="/exam/:code/delete/:quesid" exact component={DeleteQues} />
         <Route path="/login" component={Login} exact/>
         <Route path="/course/:code" component={SingleExam} exact/>
         <Route path="/:code" component={UnAuthExam} exact/>

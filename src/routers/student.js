@@ -64,7 +64,7 @@ router.post('/result/:code', studentAuth, async (req,res) => {
 
 router.get('/result/:code', studentAuth, async (req,res) => {
   try {
-    const result = await Result.findOne({ code: req.params.code})
+    const result = await Result.findOne({ code: req.params.code }).sort({'updatedAt': -1});
     const answer = [];
     for( var i in result.answers){
       answer.push(result.answers[i].value)

@@ -27,7 +27,27 @@ const SingleExam = () => {
         console.log(e, "in catch");
       }
     })();
-  }, [code]);
+  }, [code, exam]);
+
+  const handleDelete = (e) => {
+    console.log(e.target.id);
+    (async () => {
+      const token = localStorage.getItem("token");
+      try {
+        const response = await axios({
+          method: "patch",
+          url: `http://localhost:5000/deleteques/${code}/${e.target.id}`,
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        console.log(response.data);
+        const _exam = exam;
+        exam.questions = [];
+        setExam(_exam);
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+  };
 
   const renderList = () => {
     return exam.questions.map((question) => {
@@ -40,7 +60,7 @@ const SingleExam = () => {
             background: "white",
             margin: "10px",
             padding: "15px",
-            fontSize: '14px'
+            fontSize: "14px",
           }}
           key={question._id}
         >
@@ -56,8 +76,24 @@ const SingleExam = () => {
             </div>
           </div>
           <br></br>
-          <Link to={`/exam/${code}/${question._id}`} className="ui button" style={{ marginRight: '10px'}}>Modify</Link>or
-          <Link style={{ marginLeft: '10px'}} className="ui secondary button"> Delete</Link>
+          <Link
+            to={`/exam/${code}/${question._id}`}
+            className="ui button"
+            style={{ marginRight: "10px" }}
+          >
+            Modify
+          </Link>
+          or
+          <div
+            // to={`/exam/${code}/delete/${question._id}`}
+            style={{ marginLeft: "10px" }}
+            id={question._id}
+            onClick={handleDelete}
+            className="ui red button"
+          >
+            {" "}
+            Delete
+          </div>
         </div>
       );
     });
@@ -70,7 +106,11 @@ const SingleExam = () => {
       <h2>Exam Name: {exam.name}</h2>
       <h3>Questions</h3>
       <div className="ui list">{renderList()}</div>
-      <Link to={`/course/${code}/addques`} style={{marginBottom: '10px'}} className="ui button teal">
+      <Link
+        to={`/course/${code}/addques`}
+        style={{ marginBottom: "10px" }}
+        className="ui button teal"
+      >
         Add Question
       </Link>
     </div>

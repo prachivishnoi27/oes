@@ -53,6 +53,15 @@ courseSchema.methods.addNewQues = async function ( question ) {
   return course.questions;
 };
 
+courseSchema.methods.deleteQues = async function ( id ) {
+  const course = this;
+  const questions = course.questions;
+  course.questions = questions.filter(question => question._id != id )
+  // console.log(course.questions.length);
+  await course.save();
+  return course.questions;
+}
+
 courseSchema.methods.modifyQues = async function ( questions ) {
   const course = this;
   course.questions = questions;
