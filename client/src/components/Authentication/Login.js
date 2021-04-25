@@ -3,6 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import Select from "react-select";
 import UnAuthHeader from '../Headers/UnAuthHeader';
 import "./Form.css";
+import '../Home.css';
 
 import axios from "axios";
 
@@ -95,7 +96,8 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="home">
+      <div className="ui container">
       <UnAuthHeader />
       <div className="main-form">
         <h2 style={{ textAlign: "center" }}>Login</h2>
@@ -131,7 +133,7 @@ const Login = () => {
               }}/>
           </div>
           <button
-            className="ui button primary"
+            className="ui button brown"
             onClick={handleSubmit}
             style={{ 'marginTop': '10px', 'marginBottom': '10px' }}
           >
@@ -139,6 +141,7 @@ const Login = () => {
           </button>
         </form>
         <Link to="/signup" style={{'color': 'rgb(189, 129, 95)'}}>Dont have an account? Signup</Link>
+      </div>
       </div>
     </div>
   );

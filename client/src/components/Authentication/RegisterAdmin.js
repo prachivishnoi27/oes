@@ -2,7 +2,7 @@ import "./Form.css";
 import React, { useState } from "react";
 import axios from 'axios';
 
-const RegisterAdmin = () => {
+const RegisterAdmin = ({ register }) => {
   const [newAdmin, setNewAdmin] = useState({
     email: "",
     name: "",
@@ -30,6 +30,7 @@ const RegisterAdmin = () => {
       localStorage.setItem('isSignedInAdmin', true);
       localStorage.setItem('token', response.data.token);
       console.log('Admin created successfully')
+      register(true);
     } catch (e) {
       console.log('Administrator can\'t be created. error: ', e)
     }
@@ -85,7 +86,7 @@ const RegisterAdmin = () => {
           />
         </div>
         <button
-          className="ui button primary"
+          className="ui button brown"
           onClick={handleSubmit}
           style={{ marginTop: "10px" }}
         >
