@@ -1,10 +1,8 @@
 import "./Form.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from 'axios';
-import { Redirect } from "react-router";
 
-const RegisterStudent = () => {
-  const [register, setRegister] = useState('false');
+const RegisterStudent = ({ register }) => {
   const [newStudent, setNewStudent] = useState({
     email: "",
     rollno: "",
@@ -14,12 +12,6 @@ const RegisterStudent = () => {
     school: "",
     collage: ""
   });
-
-  useEffect( () => {}, [register]);
-
-  if(register === 'true'){
-    return <Redirect to="/allexams"/>;
-  }
 
   const sendInfoToServer = async () => {
     // console.log(newStudent);
@@ -46,7 +38,7 @@ const RegisterStudent = () => {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('isSignedInStudent', true);
       console.log('Student created successfully')
-      setRegister('true');
+      register(true);
     } catch (e) {
       console.log('Student can\'t be created. error: ', e)
     }
@@ -138,7 +130,7 @@ const RegisterStudent = () => {
           />
         </div>
         <button
-          className="ui button primary"
+          className="ui button brown"
           onClick={handleSubmit}
           style={{ marginTop: "10px" }}
         >

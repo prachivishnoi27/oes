@@ -25,7 +25,6 @@ const App = () => {
   console.log(localStorage.getItem('isSignedIn'));
   return (
     <BrowserRouter>
-    <div className="ui container">
       <Switch>
         <Route path="/" component={Home} exact/>
         <Route path="/allexams" component={AllExams} exact />
@@ -46,7 +45,6 @@ const App = () => {
         <Route path="/result/:code" component={Result} exact/>
         <Route path="/new" component={New} exact/>
       </Switch>
-      </div>
     </BrowserRouter>
   );
 }
