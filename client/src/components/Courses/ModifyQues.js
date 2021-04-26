@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import AdminHeader from "../Headers/AdminHeader";
 
 const ModifyQues = () => {
+  const [modify, setModify] = useState(false);
   const { code, quesid } = useParams();
   const [question, setQuestion] = useState({
       ques: '',
@@ -49,6 +50,10 @@ const ModifyQues = () => {
     })();
   }, []);
 
+  if(modify === true) {
+    return <Redirect to={`/course/${code}`} />;
+  }
+
   const handleSubmit = (e) => {
       e.preventDefault();
       console.log(question);
@@ -72,6 +77,7 @@ const ModifyQues = () => {
                 data: question
             })
             console.log(response.data.length);
+            setModify(true);
         } catch (e) {
             console.log(e);
         }
@@ -178,12 +184,12 @@ const ModifyQues = () => {
   };
 
   return (
-    <div>
+    <div className="admin">
+      <div className="ui container">
       <AdminHeader />
       <div>
-        Modify Question Exam code: {code}
-        Question id: {quesid}
         <div style={{ marginBottom: '10px'}}>{question.options.length === 0? '': renderQuestion()}</div>
+      </div>
       </div>
     </div>
   );

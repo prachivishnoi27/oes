@@ -92,7 +92,7 @@ const Model = ({ open, setOpen, handleSubmit }) => {
 };
 
 const Exam = () => {
-  const { code } = useParams();
+  const { code, time } = useParams();
   const [submitted, setSubmitted] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
@@ -106,6 +106,7 @@ const Exam = () => {
           url: `http://localhost:5000/courses/${code}/questions`,
           headers: { Authorization: `Bearer ${token}` },
         });
+        console.log(response.data);
         setQuestions(response.data);
       } catch (e) {
         console.log("error in catch", e);
@@ -161,9 +162,9 @@ const Exam = () => {
   const [isTimeOut, setTimeOut] = useState(false);
 
   return (
-    <div>
+    <div className="ui container">
       {submitted && <Redirect to={`/result/${code}`} />}
-      <Timer time="10" setTimeOut={setTimeOut} />
+      <Timer time={time} setTimeOut={setTimeOut} />
       <div>{questions.length === 0 ? "" : renderQuestions()}</div>
       <div style={{ textAlign: "center" }}>
         <div

@@ -100,8 +100,9 @@ const SingleExam = () => {
   };
 
   return (
-    <div>
-      <AdminHeader />
+    <div className="admin">
+     <div className="ui container">
+     <AdminHeader />
       <h2>Exam Code: {code}</h2>
       <h2>Exam Name: {exam.name}</h2>
       <h3>Questions</h3>
@@ -113,6 +114,7 @@ const SingleExam = () => {
       >
         Add Question
       </Link>
+     </div>
     </div>
   );
 };

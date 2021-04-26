@@ -30,7 +30,7 @@ const StudentHeader = () => {
     })();
   };
   return (
-    <div className="ui menu">
+    <div className="ui secondary menu">
       <Link to="/allexams" className="item">All Exams</Link>
       <div className="right menu">
         <Link to="/student" className="item">My profile</Link>

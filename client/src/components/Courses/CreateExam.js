@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import AdminHeader from "../Headers/AdminHeader";
+import { Redirect } from "react-router";
 
 const CreateExam = () => {
   const [courseData, setCourseData] = useState({
@@ -9,6 +10,12 @@ const CreateExam = () => {
     time: "",
     level: ""
   });
+
+  const [created, setCreated] = useState(false);
+
+  if(created === true) {
+    return <Redirect to={`/course/${courseData.code}`} />;
+  }
 
   const createRequest = async (payload) => {
     const token = localStorage.getItem("token");
@@ -21,6 +28,7 @@ const CreateExam = () => {
       });
       // console.log(response);
       console.log("Course created successfully");
+      setCreated(true);
     } catch (e) {
       console.log(e);
       console.log("in catch");
@@ -36,12 +44,6 @@ const CreateExam = () => {
       level: courseData.level
     };
     createRequest(payload);
-    setCourseData({
-      code: "",
-      name: "",
-      time: "",
-      level: ""
-    });
   };
 
   const handleChange = (e) => {
@@ -54,7 +56,8 @@ const CreateExam = () => {
   };
 
   return (
-    <div>
+    <div className="admin">
+      <div className="ui container">
       <AdminHeader/>
       <form onSubmit={handleSubmit} className="ui form">
         <div className="field">
@@ -101,6 +104,8 @@ const CreateExam = () => {
           Create Exam
         </button>
       </form>
+
+      </div>
     </div>
   );
 };

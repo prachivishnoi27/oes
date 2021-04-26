@@ -4,7 +4,6 @@ import RegisterAdmin from "./RegisterAdmin";
 import RegisterStudent from "./RegisterStudent";
 import UnAuthHeader from "../Headers/UnAuthHeader";
 import "./Form.css";
-import '../Home.css';
 
 const Signup = () => {
   const [admin, setAdmin] = useState(false);
