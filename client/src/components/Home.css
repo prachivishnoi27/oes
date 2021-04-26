@@ -7,6 +7,23 @@
     background-position: top center;
 }
 
+.admin {
+    min-height: 100vh;
+    background-image: url('../img/admin-1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom center;
+}
+
+.student {
+    min-height: 100vh;
+    background-image: url('../img/admin-1.jpg');
+    opacity: 0.9;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom center;
+}
+
 .top-center {
     height: 10vh;
     padding-top: 20px;

@@ -19,6 +19,7 @@ import ModifyQues from './Courses/ModifyQues';
 import DeleteQues from './Courses/DeleteQues';
 import Home from './Home';
 import New from './new';
+import './Home.css';
 
 const App = () => {
   console.log(localStorage.getItem('token'));
@@ -41,7 +42,7 @@ const App = () => {
         <Route path="/login" component={Login} exact/>
         <Route path="/course/:code" component={SingleExam} exact/>
         <Route path="/:code" component={UnAuthExam} exact/>
-        <Route path="/exam/:code" component={Exam} exact />
+        <Route path="/exam/time/:time/:code" component={Exam} exact />
         <Route path="/result/:code" component={Result} exact/>
         <Route path="/new" component={New} exact/>
       </Switch>

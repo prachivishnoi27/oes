@@ -45,12 +45,14 @@ const AllExams = () => {
   };
 
   return (
-    <div>
+    <div className="student">
+      <div className="ui container">
       <StudentHeader/>
       All Exams
       <br></br>
       <div style={{ marginTop: '10px'}} className="ui cards">
         {list.length === 0 ? "" : renderList()}
+      </div>
       </div>
     </div>
   );

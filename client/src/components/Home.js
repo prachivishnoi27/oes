@@ -1,5 +1,4 @@
 import React from "react";
-import "./Home.css";
 import GithubSVG from "../img/github.svg";
 import LinkedinSVG from "../img/linkedin.svg";
 import { Link } from "react-router-dom";

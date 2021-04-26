@@ -90,9 +90,9 @@ const Result = () => {
   }, [studentAnswer, answer]);
 
   return (
-    <div>
+    <div className="student">
+      <div className="ui container">
       <StudentHeader />
-      <div>Result: {code}</div>
       <div
         style={{
           alignItems: "center",
@@ -120,6 +120,7 @@ const Result = () => {
           )}
         </div>
         </div>
+      </div>
       </div>
     </div>
   );

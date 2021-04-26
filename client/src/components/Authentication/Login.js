@@ -3,7 +3,6 @@ import { Link, Redirect } from "react-router-dom";
 import Select from "react-select";
 import UnAuthHeader from '../Headers/UnAuthHeader';
 import "./Form.css";
-import '../Home.css';
 
 import axios from "axios";
 

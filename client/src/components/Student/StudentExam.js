@@ -32,13 +32,15 @@ const StudentExam = () => {
   }
 
   return (
-    <div>
+    <div className="student">
+      <div className="ui container">
       <StudentHeader />
       <div>
       {Object.keys(detail).length === 0 ? "" : renderDetails()}
       </div>
       <br></br>
-      <Link to={`/exam/${code}`} className="ui button primary">Start Exam</Link>
+      <Link to={`/exam/time/${detail.time}/${code}`} className="ui button primary">Start Exam</Link>
+      </div>
     </div>
   );
 };

@@ -1,10 +1,11 @@
 import React, {useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import AdminHeader from '../Headers/AdminHeader';
 
 const Addques = () => {
   const { code } = useParams();
+  const [add, setAdd] = useState(false);
   const [ques, setQues] = useState('');
   const [options, setOptions] = useState({
     a: '',
@@ -15,6 +16,10 @@ const Addques = () => {
   const [answer, setAns] = useState('');
   const [marks_correct, setMarks_correct] = useState('');
   const [marks_wrong, setMarks_wrong] = useState('');
+
+  if(add === true) {
+    return <Redirect to={`/course/${code}`} />; 
+  }
 
   const addques = async (payload) => {
     const token = localStorage.getItem("token");
@@ -27,6 +32,7 @@ const Addques = () => {
       })
       console.log(response.data);
       console.log('Question added successfully');
+      setAdd(true);
     } catch (e) {
       console.log(e, 'in catch');
     }
@@ -69,7 +75,8 @@ const Addques = () => {
   }
 
   return (
-    <div>
+    <div className="admin">
+      <div className="ui container">
       <AdminHeader/>
       <h2>Add question to Exam Code: {code} </h2>
       <form onSubmit={handleSubmit} className="ui form">
@@ -156,6 +163,7 @@ const Addques = () => {
           Add Question
         </button>
       </form>
+      </div>
     </div>
   )
 }

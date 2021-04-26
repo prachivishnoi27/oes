@@ -32,7 +32,7 @@ const AdminHeader = () => {
   };
 
   return (
-    <div className="ui menu">
+    <div className="ui secondary menu">
       <Link className="item" to="/courses">
         My Exams
       </Link>
