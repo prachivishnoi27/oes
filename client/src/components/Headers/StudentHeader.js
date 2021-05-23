@@ -34,6 +34,7 @@ const StudentHeader = () => {
       <Link to="/allexams" className="item">All Exams</Link>
       <div className="right menu">
         <Link to="/student" className="item">My profile</Link>
+        {/* <Link to="/myresults" className="item">Results</Link> */}
       <div onClick={Logout} className="item" style={{ cursor: "pointer" }}>
           Logout
         </div>

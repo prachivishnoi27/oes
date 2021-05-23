@@ -26,6 +26,8 @@ const StudentExam = () => {
       <div>
         <h2>Exam Code: {code}</h2>
         <h2>Topic: {detail.name}</h2>
+        <div>Marking is given beside each question</div>
+        <div>All questions are compulsory</div>
         <div className="item">Time: {detail.time} minutes</div>
       </div>
     )
