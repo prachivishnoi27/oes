@@ -65,6 +65,8 @@ const Questions = ({ answer, setAnswer, question }) => {
           />
         </Form.Field>
       </Form>
+      <br></br>
+      <div>Marking: +{question.marks_correct} , -{question.marks_wrong}</div>
     </div>
   );
 };

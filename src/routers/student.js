@@ -62,6 +62,17 @@ router.post('/result/:code', studentAuth, async (req,res) => {
   }
 })
 
+// router.get('/myresults', studentAuth, async (req,res) => {
+//   console.log('called');
+//   try {
+//     const results = await Result.find({ student_id: req.student._id })
+//     console.log(results);
+//     res.send(results);
+//   } catch (e) {
+//     res.status(400).send(e);
+//   }
+// })
+
 router.get('/result/:code', studentAuth, async (req,res) => {
   try {
     const result = await Result.findOne({ code: req.params.code }).sort({'updatedAt': -1});
