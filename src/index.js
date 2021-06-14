@@ -1,5 +1,6 @@
 const express = require("express");
 const connectDb = require("./db/mongoose");
+const path = require("path")
 const cors = require("cors")
 const userRouter = require("./routers/admin");
 const courseRouter = require("./routers/course");
@@ -34,6 +35,9 @@ app.use(studentRouter);
 
 if(process.env.NODE_ENV == "production") {
   app.use(express.static("client/build"));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
 }
 
 app.listen(PORT, () => {
