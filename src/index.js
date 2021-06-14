@@ -32,10 +32,6 @@ app.use(userRouter);
 app.use(courseRouter);
 app.use(studentRouter);
 
-app.get("", (req, res) => {
-  res.send("Hey there");
-});
-
 if(process.env.NODE_ENV == "production") {
   app.use(express.static("client/build"));
 }
