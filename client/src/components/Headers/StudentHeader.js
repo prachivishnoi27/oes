@@ -30,10 +30,11 @@ const StudentHeader = () => {
     })();
   };
   return (
-    <div className="ui menu">
-      <Link to="/" className="item">All Exams</Link>
+    <div className="ui secondary menu">
+      <Link to="/allexams" className="item">All Exams</Link>
       <div className="right menu">
-        <Link to="/student/me" className="item">My profile</Link>
+        <Link to="/student" className="item">My profile</Link>
+        {/* <Link to="/myresults" className="item">Results</Link> */}
       <div onClick={Logout} className="item" style={{ cursor: "pointer" }}>
           Logout
         </div>

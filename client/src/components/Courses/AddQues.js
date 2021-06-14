@@ -1,10 +1,11 @@
 import React, {useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import AdminHeader from '../Headers/AdminHeader';
 
 const Addques = () => {
   const { code } = useParams();
+  const [add, setAdd] = useState(false);
   const [ques, setQues] = useState('');
   const [options, setOptions] = useState({
     a: '',
@@ -13,8 +14,14 @@ const Addques = () => {
     d: ''
   });
   const [answer, setAns] = useState('');
+  const [marks_correct, setMarks_correct] = useState('');
+  const [marks_wrong, setMarks_wrong] = useState('');
 
-  const addquesRequest = async (payload) => {
+  if(add === true) {
+    return <Redirect to={`/course/${code}`} />; 
+  }
+
+  const addques = async (payload) => {
     const token = localStorage.getItem("token");
     try {
       const response = await axios({
@@ -25,6 +32,7 @@ const Addques = () => {
       })
       console.log(response.data);
       console.log('Question added successfully');
+      setAdd(true);
     } catch (e) {
       console.log(e, 'in catch');
     }
@@ -32,28 +40,30 @@ const Addques = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(ques);
-    console.log(options);
-    console.log(answer);
+    // console.log(ques);
+    // console.log(options);
+    // console.log(answer);
     const payload = {
-      "ques": ques,
-      "options": [
+      ques,
+      options: [
         {
-          "a": options.a
+          value: options.a
         },
         {
-          "b": options.b
+          value: options.b
         },
         {
-          "c": options.c
+          value: options.c
         },
         {
-          "d": options.d
+          value: options.d
         }
       ],
-      "ans": answer
+      answer,
+      marks_correct,
+      marks_wrong
     }
-    addquesRequest(payload);
+    addques(payload);
   }
 
   const handleChange = (e) => {
@@ -65,9 +75,10 @@ const Addques = () => {
   }
 
   return (
-    <div>
+    <div className="admin">
+      <div className="ui container">
       <AdminHeader/>
-      <div>Add question to Course Code: {code} </div>
+      <h2>Add question to Exam Code: {code} </h2>
       <form onSubmit={handleSubmit} className="ui form">
         <div className="field">
           <label>Question</label>
@@ -123,13 +134,36 @@ const Addques = () => {
             onChange={(e) => setAns(e.target.value)}
           />
         </div>
+        <div className="field">
+          <label>Marking</label>
+          <div>
+            Positive:
+            <input
+              type="text"
+              id="marks_correct"
+              value={marks_correct}
+              onChange={(e) => setMarks_correct(e.target.value)}
+            />
+          </div>
+          <div>
+            Negative:
+            <input
+              type="text"
+              id="marks_wrong"
+              value={marks_wrong}
+              onChange={(e) => setMarks_wrong(e.target.value)}
+            />
+          </div>
+        </div>
         <button
           className="ui button primary"
+          style={{ marginBottom: '10px'}}
           onClick={handleSubmit}
         >
-          Add Ques
+          Add Question
         </button>
       </form>
+      </div>
     </div>
   )
 }

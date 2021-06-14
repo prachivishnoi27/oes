@@ -1,11 +1,18 @@
 const express = require("express");
-require("./db/mongoose");
+const connectDb = require("./db/mongoose");
+const cors = require("cors")
 const userRouter = require("./routers/admin");
 const courseRouter = require("./routers/course");
 const studentRouter = require('./routers/student');
+connectDb()
 const app = express();
 
+console.log(process.env);
+
+const PORT = process.env.PORT || 5000;
+
 app.use(express.json());
+app.use(cors);
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
@@ -29,6 +36,10 @@ app.get("", (req, res) => {
   res.send("Hey there");
 });
 
-app.listen(5000, () => {
+if(process.env.NODE_ENV == "production") {
+  app.use(express.static("client/build"));
+}
+
+app.listen(PORT, () => {
   console.log("server is up on port 5000");
 });

@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import axios from "axios";
 import AdminHeader from "../Headers/AdminHeader";
+import { Redirect } from "react-router";
 
-const CreateCourse = () => {
+const CreateExam = () => {
   const [courseData, setCourseData] = useState({
     code: "",
     name: "",
-    p_marks: "",
-    n_marks: "",
     time: "",
+    level: ""
   });
+
+  const [created, setCreated] = useState(false);
+
+  if(created === true) {
+    return <Redirect to={`/course/${courseData.code}`} />;
+  }
 
   const createRequest = async (payload) => {
     const token = localStorage.getItem("token");
@@ -20,8 +26,9 @@ const CreateCourse = () => {
         data: payload,
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log(response);
+      // console.log(response);
       console.log("Course created successfully");
+      setCreated(true);
     } catch (e) {
       console.log(e);
       console.log("in catch");
@@ -33,20 +40,10 @@ const CreateCourse = () => {
     const payload = {
       code: courseData.code,
       name: courseData.name,
-      marking: {
-        positive: courseData.p_marks,
-        negative: courseData.n_marks
-      },
-      time: courseData.time
+      time: courseData.time,
+      level: courseData.level
     };
     createRequest(payload);
-    setCourseData({
-      code: "",
-      name: "",
-      p_marks: "",
-      n_marks: "",
-      time: ""
-    });
   };
 
   const handleChange = (e) => {
@@ -59,7 +56,8 @@ const CreateCourse = () => {
   };
 
   return (
-    <div>
+    <div className="admin">
+      <div className="ui container">
       <AdminHeader/>
       <form onSubmit={handleSubmit} className="ui form">
         <div className="field">
@@ -93,36 +91,23 @@ const CreateCourse = () => {
           />
         </div>
         <div className="field">
-          <label>Marking</label>
-          <div>
-            {" "}
-            Positive:
-            <input
-              type="text"
-              placeholder="+1"
-              id="p_marks"
-              value={courseData.p_marks}
-              onChange={handleChange}
-            />
-          </div>
-          <div>
-            {" "}
-            Negative:
-            <input
-              type="text"
-              placeholder="-1"
-              id="n_marks"
-              value={courseData.n_marks}
-              onChange={handleChange}
-            />
-          </div>
+          <label>Level: </label>
+          <input
+            type="text"
+            placeholder="Beginner"
+            id="level"
+            value={courseData.level}
+            onChange={handleChange}
+          />
         </div>
         <button onClick={handleSubmit} className="ui primary button">
-          Create examination
+          Create Exam
         </button>
       </form>
+
+      </div>
     </div>
   );
 };
 
-export default CreateCourse;
+export default CreateExam;

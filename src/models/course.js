@@ -15,15 +15,9 @@ const courseSchema = new mongoose.Schema({
     required: true,
     ref: 'Admin'
   },
-  marking: {
-    positive: {
-      type: String,
-      required: true
-    },
-    negative: {
-      type: String,
-      required: true
-    }
+  level: {
+    type: String,
+    required: true
   },
   time: {
     type: String,
@@ -34,20 +28,17 @@ const courseSchema = new mongoose.Schema({
       type: String
     },
     options: [{
-      a: {
-        type: String
-      },
-      b: {
-        type: String
-      },
-      c: {
-        type: String
-      },
-      d: {
+      value: {
         type: String
       }
     }],
-    ans: {
+    answer: {
+      type: String
+    },
+    marks_correct: {
+      type: String
+    },
+    marks_wrong: {
       type: String
     }
   }]
@@ -55,12 +46,28 @@ const courseSchema = new mongoose.Schema({
   timestamps: true
 })
 
-courseSchema.methods.addNewQues = async function ( ques ) {
+courseSchema.methods.addNewQues = async function ( question ) {
   const course = this;
-  course.questions = course.questions.concat(ques);
+  course.questions = course.questions.concat(question);
   await course.save();
   return course.questions;
 };
+
+courseSchema.methods.deleteQues = async function ( id ) {
+  const course = this;
+  const questions = course.questions;
+  course.questions = questions.filter(question => question._id != id )
+  // console.log(course.questions.length);
+  await course.save();
+  return course.questions;
+}
+
+courseSchema.methods.modifyQues = async function ( questions ) {
+  const course = this;
+  course.questions = questions;
+  await course.save();
+  return course.questions;
+} 
 
 const Course = mongoose.model('Course', courseSchema)
 

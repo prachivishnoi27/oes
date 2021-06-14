@@ -16,7 +16,7 @@ const Login = () => {
 
   useEffect( () => {}, [log]);
   if(log === 'Student'){
-    return <Redirect to="/allexams" />
+    return <Redirect to="/student" />
   }
 
   if(log === 'Admin'){
@@ -49,7 +49,7 @@ const Login = () => {
         try {
           const response = await axios({
             method: "post",
-            url: "http:localhost:5000/admin/login",
+            url: "http://localhost:5000/admin/login",
             data: payload,
           });
           setUser((prevState) => ({
@@ -95,7 +95,8 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="home">
+      <div className="ui container">
       <UnAuthHeader />
       <div className="main-form">
         <h2 style={{ textAlign: "center" }}>Login</h2>
@@ -131,7 +132,7 @@ const Login = () => {
               }}/>
           </div>
           <button
-            className="ui button primary"
+            className="ui button brown"
             onClick={handleSubmit}
             style={{ 'marginTop': '10px', 'marginBottom': '10px' }}
           >
@@ -139,6 +140,7 @@ const Login = () => {
           </button>
         </form>
         <Link to="/signup" style={{'color': 'rgb(189, 129, 95)'}}>Dont have an account? Signup</Link>
+      </div>
       </div>
     </div>
   );

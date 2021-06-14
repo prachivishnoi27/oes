@@ -1,6 +1,7 @@
 const express = require('express')
 const Course = require('../models/course')
 const adminAuth = require('../middlewares/adminAuth')
+const studentAuth = require('../middlewares/studentAuth')
 const router = new express.Router()
 
 router.post('/courses', adminAuth, async (req, res) => {
@@ -8,8 +9,6 @@ router.post('/courses', adminAuth, async (req, res) => {
     ...req.body,
     owner: req.admin._id
   })
-
-  console.log(course);
 
   try {
     await course.save()
@@ -55,6 +54,25 @@ router.get('/:code', async (req, res) => {
   }
 })
 
+router.get('/answers/:code', async (req, res) => {
+  // console.log(req.params.code);
+  try {
+    const course = await Course.findOne({ code: req.params.code }, {}, { sort: { 'created_at' : -1 } })
+    if(!course) { 
+      return res.status(404).send()
+    }
+    const answers = [{}];
+    course.questions.map( question => {
+      // answers.push(question.answer);
+      answers.push({ answer: question.answer, correct: question.marks_correct, wrong: question.marks_wrong}) 
+    })
+    // console.log(answers.length);
+    res.status(200).send(answers)
+  } catch (e) {
+    res.status(500).send(e)
+  }
+})
+
 router.get('/courses/:code', adminAuth, async (req, res) => {
   const code = req.params.code
   try {
@@ -66,6 +84,29 @@ router.get('/courses/:code', adminAuth, async (req, res) => {
     res.status(200).send(course)
   } catch (e) {
     res.status(500).send(e)
+  }
+})
+
+router.get('/courses/:code/questions', studentAuth, async (req, res) => {
+  try {
+    const course = await Course.findOne({ code: req.params.code })
+    if(!course) { 
+      return res.status(404).send()
+    }
+    res.status(200).send(course.questions)
+  } catch (e) {
+    res.status(500).send(e)
+  }
+})
+
+router.get('/courses/:code/:quesid', adminAuth, async (req, res) => {
+  try {
+    const course = await Course.findOne({ code: req.params.code, owner: req.admin._id });
+    const questions = course.questions;
+    const quesIndex = questions.findIndex(ques => ques._id == req.params.quesid);
+    res.send(questions[quesIndex]);
+  } catch (e) {
+    res.status(400).send(e);
   }
 })
 
@@ -92,16 +133,39 @@ router.patch('/courses/:code', adminAuth, async (req, res) => {
   }
 })
 
+router.patch('/deleteques/:code/:id', adminAuth, async (req, res) => {
+  try {
+    const course = await Course.findOne({ code: req.params.code, owner: req.admin._id});
+    const modifiedQuestions = await course.deleteQues(req.params.id);
+    res.status(200).send(modifiedQuestions)
+  } catch (e) {
+    res.status(400).send('Cannot delete question')
+  }
+})
+
 router.patch('/courses/:code/addques', adminAuth, async (req, res) => {
   try {
     const course = await Course.findOne({ code: req.params.code, owner: req.admin._id})
-    // console.log(course.questions.length);
-    // console.log(req.body);
     const modifiedCourse = await course.addNewQues(req.body);
-    // console.log(modifiedCourse.length);
     res.status(200).send(modifiedCourse);
   } catch (e) {
-    res.status(400).send();
+    res.status(400).send(e);
+  }
+})
+
+router.patch('/courses/:code/:quesid', adminAuth, async (req, res) => {
+  try {
+    const course = await Course.findOne({ code: req.params.code, owner: req.admin._id });
+    const questions = course.questions;
+    // console.log(questions);
+    // console.log(req.params.quesid);
+    const modifyQuesIndex = questions.findIndex(ques => ques._id == req.params.quesid);
+    // console.log(modifyQuesIndex)
+    questions[modifyQuesIndex] = req.body;
+    const modifiedQuestions = await course.modifyQues(questions);
+    res.send(modifiedQuestions);
+  } catch (e) {
+    res.status(400).send(e);
   }
 })
 

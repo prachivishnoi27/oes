@@ -1,9 +1,54 @@
-.top-center{
-  height: 15vh;
-  display: flex;
-  align-items: center;
+.home {
+    min-height: 100vh;
+    background-image: url('../img/bg.jpg');
+    opacity: 0.9;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
 }
 
-.top-center h1 {
-  font-size: 30px;
+.admin {
+    min-height: 100vh;
+    background-image: url('../img/admin-1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom center;
+}
+
+.student {
+    min-height: 100vh;
+    background-image: url('../img/admin-1.jpg');
+    opacity: 0.9;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom center;
+}
+
+.top-center {
+    height: 10vh;
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+}
+
+.about {
+    width: 50vw;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: black;
+    opacity: 0.8;
+    font-size:16px;
+}
+
+.main {
+    color: white;
+    display: flex;
+    margin-top: 8%;
+    justify-content: center;
+    align-items: center;
 }

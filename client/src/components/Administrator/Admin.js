@@ -1,33 +1,57 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 import AdminHeader from "../Headers/AdminHeader";
 
 const Admin = () => {
-  const [data, setData] = useState("");
+  const [data, setData] = useState({});
 
   useEffect(() => {
     (async () => {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       try {
         const response = await axios({
           method: "get",
           url: "http://localhost:5000/admin/me",
-          headers: { Authorization: `Bearer ${token}` }
-        })
-
-        console.log(response.data);
-        setData(response.data.email);
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setData(response.data);
       } catch (e) {
-        console.log('Admin profile page error: ', e);
+        console.log("Admin profile page error: ", e);
       }
     })();
   }, []);
 
   return (
-    <div>
-      <AdminHeader/>
-      <div className="ui items">{data}</div>
-      <button className="ui teal button">Edit Profile</button>
+    <div className="admin">
+      <div className="ui container">
+      <AdminHeader />
+      {/* <button className="ui teal button">Edit Profile</button> */}
+      
+      </div>
+      <div className="main">
+      <div className="ui raised card">
+        <div className="content">
+          <div className="center aligned header">{data.name}</div>
+          <div className="center aligned description">
+            <p>
+              Email: {data.email}
+            </p>
+            <p>
+              Administrator
+            </p>
+          </div>
+        </div>
+        <div className="extra content">
+          <div className="center aligned author">
+            <img
+              className="ui avatar image"
+              src="https://semantic-ui.com/images/avatar/small/jenny.jpg"
+            />{" "}
+            {data.name}
+          </div>
+        </div>  
+      </div>
+    </div>
     </div>
   );
 };
