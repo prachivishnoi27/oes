@@ -2,13 +2,13 @@ const express = require("express");
 const connectDb = require("./db/mongoose");
 const path = require("path")
 const cors = require("cors")
+require("dotenv").config({ path: "./config.env"});
 const userRouter = require("./routers/admin");
 const courseRouter = require("./routers/course");
 const studentRouter = require('./routers/student');
-connectDb()
-const app = express();
+connectDb();
 
-console.log(process.env);
+const app = express();
 
 const PORT = process.env.PORT || 5000;
 
