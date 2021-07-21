@@ -1,13 +1,14 @@
 const express = require("express");
 const connectDb = require("./db/mongoose");
+const path = require("path")
 const cors = require("cors")
+require("dotenv").config({ path: "./config.env"});
 const userRouter = require("./routers/admin");
 const courseRouter = require("./routers/course");
 const studentRouter = require('./routers/student');
-connectDb()
-const app = express();
+connectDb();
 
-console.log(process.env);
+const app = express();
 
 const PORT = process.env.PORT || 5000;
 
@@ -32,12 +33,11 @@ app.use(userRouter);
 app.use(courseRouter);
 app.use(studentRouter);
 
-app.get("", (req, res) => {
-  res.send("Hey there");
-});
-
 if(process.env.NODE_ENV == "production") {
   app.use(express.static("client/build"));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
 }
 
 app.listen(PORT, () => {
