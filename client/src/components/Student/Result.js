@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import baseUrl from "../../utils/baseUrl";
 import { useParams } from "react-router-dom";
 import { CSVLink } from "react-csv";
 import StudentHeader from "../Headers/StudentHeader";
@@ -25,7 +26,7 @@ const Result = () => {
       try {
         const response = await axios({
           method: "get",
-          url: `http://localhost:5000/result/${code}`,
+          url: `${baseUrl}/result/${code}`,
           headers: { Authorization: `Bearer ${token}` },
         });
         setStudentAnswer(response.data);
@@ -37,7 +38,7 @@ const Result = () => {
       try {
         const response = await axios({
           method: "get",
-          url: `http://localhost:5000/answers/${code}`,
+          url: `${baseUrl}/answers/${code}`,
         });
         // console.log("Response answer : ", response)
         setAnswer(response.data);

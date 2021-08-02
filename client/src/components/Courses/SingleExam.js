@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import AdminHeader from "../Headers/AdminHeader";
 import axios from "axios";
+import baseUrl from "../../utils/baseUrl";
 
 const SingleExam = () => {
   const { code } = useParams();
@@ -16,7 +17,7 @@ const SingleExam = () => {
       try {
         const response = await axios({
           method: "get",
-          url: `http://localhost:5000/courses/${code}`,
+          url: `${baseUrl}/courses/${code}`,
           headers: { Authorization: `Bearer ${token}` },
         });
         setExam({
@@ -36,7 +37,7 @@ const SingleExam = () => {
       try {
         const response = await axios({
           method: "patch",
-          url: `http://localhost:5000/deleteques/${code}/${e.target.id}`,
+          url: `${baseUrl}/deleteques/${code}/${e.target.id}`,
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log(response.data);

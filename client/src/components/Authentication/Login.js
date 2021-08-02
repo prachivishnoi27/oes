@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
+import baseUrl from "../../utils/baseUrl";
 import Select from "react-select";
 import UnAuthHeader from '../Headers/UnAuthHeader';
 import "./Form.css";
-
 import axios from "axios";
 
 const Login = () => {
@@ -49,7 +49,7 @@ const Login = () => {
         try {
           const response = await axios({
             method: "post",
-            url: "http://localhost:5000/admin/login",
+            url: `${baseUrl}/admin/login`,
             data: payload,
           });
           setUser((prevState) => ({
@@ -74,7 +74,7 @@ const Login = () => {
         try {
           const response = await axios({
             method: "post",
-            url: "http://localhost:5000/student/login",
+            url: `${baseUrl}/student/login`,
             data: payload,
           });
           setUser((prevState) => ({

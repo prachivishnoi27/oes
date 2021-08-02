@@ -1,4 +1,5 @@
 import axios from "axios";
+import baseUrl from "../../utils/baseUrl";
 import React, { useEffect, useState } from "react";
 import StudentHeader from "../Headers/StudentHeader";
 
@@ -11,7 +12,7 @@ const Student = () => {
         const token = localStorage.getItem("token");
         const response = await axios({
           method: "get",
-          url: "http://localhost:5000/student/me",
+          url: `${baseUrl}/student/me`,
           headers: {
             Authorization: `Bearer ${token}`,
           },

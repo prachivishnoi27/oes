@@ -1,4 +1,5 @@
 import axios from "axios";
+import baseUrl from "../../utils/baseUrl";
 import React, { useEffect, useState } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import AdminHeader from "../Headers/AdminHeader";
@@ -30,7 +31,7 @@ const ModifyQues = () => {
       try {
         const { data } = await axios({
           method: "get",
-          url: `http://localhost:5000/courses/${code}/${quesid}`,
+          url: `${baseUrl}/courses/${code}/${quesid}`,
           headers: { Authorization: `Bearer ${token}` },
         });
         setQuestion(data);
@@ -72,7 +73,7 @@ const ModifyQues = () => {
         try {
             const response = await axios({
                 method: 'patch',
-                url: `http://localhost:5000/courses/${code}/${quesid}`,
+                url: `${baseUrl}/courses/${code}/${quesid}`,
                 headers: { Authorization: `Bearer ${token}`},
                 data: question
             })

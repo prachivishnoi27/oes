@@ -2,6 +2,7 @@ import React, {useState } from 'react';
 import axios from 'axios';
 import { Redirect, useParams } from 'react-router-dom';
 import AdminHeader from '../Headers/AdminHeader';
+import baseUrl from "../../utils/baseUrl";
 
 const Addques = () => {
   const { code } = useParams();
@@ -26,7 +27,7 @@ const Addques = () => {
     try {
       const response = await axios({
         method: "patch",
-        url: `http://localhost:5000/courses/${code}/addques`,
+        url: `${baseUrl}/courses/${code}/addques`,
         data: payload,
         headers: { Authorization: `Bearer ${token}`}
       })

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+import baseUrl from "../../utils/baseUrl";
 import StudentHeader from "../Headers/StudentHeader";
 
 const StudentExam = () => {
@@ -12,7 +13,7 @@ const StudentExam = () => {
       try {
         const response = await axios({
           method: "get",
-          url: `http://localhost:5000/${code}`,
+          url: `${baseUrl}/${code}`,
         });
         setDetail(response.data);
       } catch (e) {

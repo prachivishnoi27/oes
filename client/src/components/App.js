@@ -17,19 +17,16 @@ import Student from './Student/Student';
 import Result from './Student/Result';
 import ModifyQues from './Courses/ModifyQues';
 import DeleteQues from './Courses/DeleteQues';
-import Myresults from './Student/Myresults';
 import Home from './Home';
-import New from './new';
 import './Home.css';
 
 const App = () => {
-  console.log(localStorage.getItem('token'));
-  console.log(localStorage.getItem('isSignedIn'));
+  // console.log(localStorage.getItem('token'));
+  // console.log(localStorage.getItem('isSignedIn'));
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" component={Home} exact/>
-        {/* <Route path="/myresults" component={Myresults} exact /> */}
         <Route path="/allexams" component={AllExams} exact />
         <Route path="/courses" component={AdminExams} exact/>
         <Route path="/signup" component={Signup} exact />
@@ -46,7 +43,6 @@ const App = () => {
         <Route path="/:code" component={UnAuthExam} exact/>
         <Route path="/exam/time/:time/:code" component={Exam} exact />
         <Route path="/result/:code" component={Result} exact/>
-        <Route path="/new" component={New} exact/>
       </Switch>
     </BrowserRouter>
   );

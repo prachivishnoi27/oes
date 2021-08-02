@@ -1,4 +1,5 @@
 import axios from 'axios';
+import baseUrl from "../../utils/baseUrl";
 import React, { useEffect, useState } from 'react';
 import StudentHeader from '../Headers/StudentHeader';
 
@@ -11,7 +12,7 @@ const Myresults = () => {
             try {
                 const response = await axios({
                     method: 'get',
-                    url: 'http://localhost:5000/myresults',
+                    url: `${baseUrl}/myresults`,
                     headers: { Authorization: `Bearer ${token}`}
                 })
                 console.log(response);

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import baseUrl from "../../utils/baseUrl";
 import AdminHeader from "../Headers/AdminHeader";
 
 const AdminExams = () => {
@@ -13,7 +14,7 @@ const AdminExams = () => {
         // console.log(token);
         const response = await axios({
           method: "get",
-          url: "http://localhost:5000/courses",
+          url: `${baseUrl}/courses`,
           headers: { Authorization: `Bearer ${token}` },
         });
         // console.log(response.data)

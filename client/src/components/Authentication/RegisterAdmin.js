@@ -1,6 +1,7 @@
 import "./Form.css";
 import React, { useState } from "react";
 import axios from 'axios';
+import baseUrl from "../../utils/baseUrl";
 
 const RegisterAdmin = ({ register }) => {
   const [newAdmin, setNewAdmin] = useState({
@@ -10,17 +11,12 @@ const RegisterAdmin = ({ register }) => {
   });
 
   const sendInfoToServer = async () => {
-    console.log(newAdmin);
-    const payload = {
-      "name": newAdmin.name,
-      "email": newAdmin.email,
-      "password": newAdmin.password
-    }
+    // console.log(newAdmin);
     try {
       const response = await axios({
-        method: "post",
-        url: "http://localhost:5000/admin",
-        data: payload
+        method: "POST",
+        url: `${baseUrl}/admin`,
+        data: newAdmin
       })
       setNewAdmin(prevState => ({
         ...prevState,
@@ -32,7 +28,7 @@ const RegisterAdmin = ({ register }) => {
       console.log('Admin created successfully')
       register(true);
     } catch (e) {
-      console.log('Administrator can\'t be created. error: ', e)
+      console.log('Administrator can\'t be created. error: ', e);
     }
   };
 

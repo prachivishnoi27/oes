@@ -1,6 +1,7 @@
 import "./Form.css";
 import React, { useState } from "react";
 import axios from 'axios';
+import baseUrl from "../../utils/baseUrl";
 
 const RegisterStudent = ({ register }) => {
   const [newStudent, setNewStudent] = useState({
@@ -27,7 +28,7 @@ const RegisterStudent = ({ register }) => {
     try {
       const response = await axios({
         method: "post",
-        url: "http://localhost:5000/student",
+        url: `${baseUrl}/student`,
         data: payload
       })
       setNewStudent(prevState => ({

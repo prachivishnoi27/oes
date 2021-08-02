@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import baseUrl from "../../utils/baseUrl";
 import StudentHeader from '../Headers/StudentHeader';
 
 const AllExams = () => {
@@ -11,7 +12,7 @@ const AllExams = () => {
       try {
         const { data } = await axios({
           method: 'get',
-          url: 'http://localhost:5000/allcourses'
+          url: `${baseUrl}/allcourses`
         })
         setList(data);
       } catch (e) {

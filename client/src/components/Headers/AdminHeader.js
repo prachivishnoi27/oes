@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
+import baseUrl from "../../utils/baseUrl";
 
 const AdminHeader = () => {
   const [isSignedInAdmin, setIsSignedInAdmin] = useState(
@@ -18,7 +19,7 @@ const AdminHeader = () => {
       try {
         await axios({
           method: "post",
-          url: "http://localhost:5000/admin/logout",
+          url: `${baseUrl}/admin/logout`,
           headers: { Authorization: `Bearer ${token}` },
         });
         localStorage.removeItem("token");

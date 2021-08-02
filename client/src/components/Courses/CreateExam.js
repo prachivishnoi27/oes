@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import baseUrl from "../../utils/baseUrl";
 import AdminHeader from "../Headers/AdminHeader";
 import { Redirect } from "react-router";
 
@@ -22,7 +23,7 @@ const CreateExam = () => {
     try {
       const response = await axios({
         method: "post",
-        url: "http://localhost:5000/courses",
+        url: `${baseUrl}/courses`,
         data: payload,
         headers: { Authorization: `Bearer ${token}` },
       });

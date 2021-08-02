@@ -1,4 +1,5 @@
 import axios from "axios";
+import baseUrl from "../../utils/baseUrl";
 import React, { useEffect, useState } from "react";
 import { useParams, Redirect } from "react-router-dom";
 import { Form, Radio, Button, Header, Icon, Modal } from "semantic-ui-react";
@@ -105,7 +106,7 @@ const Exam = () => {
         const token = localStorage.getItem("token");
         const response = await axios({
           method: "get",
-          url: `http://localhost:5000/courses/${code}/questions`,
+          url: `${baseUrl}/courses/${code}/questions`,
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log(response.data);
@@ -130,7 +131,7 @@ const Exam = () => {
       try {
         const response = await axios({
           method: "post",
-          url: `http://localhost:5000/result/${code}`,
+          url: `${baseUrl}/result/${code}`,
           data: payload,
           headers: { Authorization: `Bearer ${token}` },
         });

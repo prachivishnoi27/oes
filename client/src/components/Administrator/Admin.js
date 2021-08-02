@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import baseUrl from "../../utils/baseUrl";
 import AdminHeader from "../Headers/AdminHeader";
 
 const Admin = () => {
@@ -11,7 +12,7 @@ const Admin = () => {
       try {
         const response = await axios({
           method: "get",
-          url: "http://localhost:5000/admin/me",
+          url: `${baseUrl}/admin/me`,
           headers: { Authorization: `Bearer ${token}` },
         });
         setData(response.data);
